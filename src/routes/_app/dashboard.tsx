@@ -41,38 +41,31 @@ export const Route = createFileRoute("/_app/dashboard")({
   component: DashboardPage,
 });
 
-type Resident = { id: string; status: string; admission_date: string | null; discharge_date: string | null; first_name: string; last_name: string };
-type Incident = { id: string; status: string; severity: string | null; occurred_at: string; title: string };
-type TreatmentPlan = { id: string; next_review_date: string | null; status: string; resident_id: string };
-type ProgressNote = { id: string; created_at: string; note_type: string; author_id: string; resident_id: string; content: string };
-type Appointment = { id: string; appointment_at: string; reason: string | null; resident_id: string };
-
 function useDashboardData() {
   return useQuery({
     queryKey: ["dashboard"],
     queryFn: async () => {
-      const [residents, incidents, plans, notes, appointments, profiles] = await Promise.all([
+      const [residents, incidents, plans, notes, transport, profiles] = await Promise.all([
         supabase.from("residents").select("id, status, admission_date, discharge_date, first_name, last_name"),
-        supabase.from("incidents").select("id, status, severity, occurred_at, title").order("occurred_at", { ascending: false }).limit(20),
-        supabase.from("treatment_plans").select("id, next_review_date, status, resident_id"),
+        supabase.from("incidents").select("id, status, severity, incident_date, incident_type, description").order("incident_date", { ascending: false }).limit(40),
+        supabase.from("treatment_plans").select("id, review_date, status, resident_id"),
         supabase.from("progress_notes").select("id, created_at, note_type, author_id, resident_id, content").order("created_at", { ascending: false }).limit(10),
-        supabase.from("transportation_logs").select("id, appointment_at:scheduled_departure, reason:purpose, resident_id").order("scheduled_departure", { ascending: true }).limit(8),
+        supabase.from("transportation_logs").select("id, departure_time, appointment_type, destination, resident_id").order("departure_time", { ascending: true }).limit(8),
         supabase.from("profiles").select("id, full_name, on_duty"),
       ]);
       return {
-        residents: (residents.data ?? []) as Resident[],
-        incidents: (incidents.data ?? []) as Incident[],
-        plans: (plans.data ?? []) as TreatmentPlan[],
-        notes: (notes.data ?? []) as ProgressNote[],
-        appointments: (appointments.data ?? []) as Appointment[],
-        staff: (profiles.data ?? []) as { id: string; full_name: string; on_duty: boolean | null }[],
+        residents: residents.data ?? [],
+        incidents: incidents.data ?? [],
+        plans: plans.data ?? [],
+        notes: notes.data ?? [],
+        transport: transport.data ?? [],
+        staff: profiles.data ?? [],
       };
     },
   });
 }
 
-function buildCensusSeries(residents: Resident[]) {
-  // Build last 8 weeks census from admission/discharge dates
+function buildCensusSeries(residents: { admission_date: string | null; discharge_date: string | null }[]) {
   const weeks: { label: string; census: number; admits: number; discharges: number }[] = [];
   const now = new Date();
   for (let i = 7; i >= 0; i--) {
@@ -111,22 +104,18 @@ function DashboardPage() {
   const incidents = data?.incidents ?? [];
   const plans = data?.plans ?? [];
   const notes = data?.notes ?? [];
-  const appointments = data?.appointments ?? [];
+  const transport = data?.transport ?? [];
   const staff = data?.staff ?? [];
 
   const activeResidents = residents.filter((r) => r.status === "active").length;
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-  const newAdmissions = residents.filter(
-    (r) => r.admission_date && new Date(r.admission_date) >= startOfMonth,
-  ).length;
-  const discharges = residents.filter(
-    (r) => r.discharge_date && new Date(r.discharge_date) >= startOfMonth,
-  ).length;
+  const newAdmissions = residents.filter((r) => r.admission_date && new Date(r.admission_date) >= startOfMonth).length;
+  const discharges = residents.filter((r) => r.discharge_date && new Date(r.discharge_date) >= startOfMonth).length;
   const openIncidents = incidents.filter((i) => i.status !== "resolved" && i.status !== "closed").length;
   const plansDue = plans.filter((p) => {
-    if (!p.next_review_date) return false;
-    const nrd = new Date(p.next_review_date);
+    if (!p.review_date) return false;
+    const nrd = new Date(p.review_date);
     const sevenDays = new Date();
     sevenDays.setDate(sevenDays.getDate() + 7);
     return nrd <= sevenDays;
@@ -142,7 +131,7 @@ function DashboardPage() {
       map.set(d.toISOString().slice(0, 10), 0);
     }
     incidents.forEach((inc) => {
-      const key = inc.occurred_at.slice(0, 10);
+      const key = inc.incident_date.slice(0, 10);
       if (map.has(key)) map.set(key, (map.get(key) ?? 0) + 1);
     });
     return Array.from(map.entries()).map(([d, count]) => ({
@@ -152,7 +141,7 @@ function DashboardPage() {
   })();
 
   const complianceData = [
-    { name: "Current", value: Math.max(staff.length - 2, 0), fill: "var(--color-chart-1)" },
+    { name: "Current", value: Math.max(staff.length - 2, 1), fill: "var(--color-chart-1)" },
     { name: "Due Soon", value: 1, fill: "var(--color-chart-3)" },
     { name: "Expired", value: 1, fill: "var(--color-destructive)" },
   ];
@@ -186,7 +175,6 @@ function DashboardPage() {
       />
 
       <div className="space-y-6 p-6">
-        {/* KPIs */}
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
           <KpiCard label="Active Residents" value={isLoading ? "—" : activeResidents} icon={Users} tone="primary" hint="In care today" />
           <KpiCard label="New Admissions" value={isLoading ? "—" : newAdmissions} icon={UserPlus} delta={12} hint="This month" />
@@ -196,7 +184,6 @@ function DashboardPage() {
           <KpiCard label="Staff On Duty" value={isLoading ? "—" : onDuty} icon={ShieldCheck} hint={`of ${staff.length} total`} />
         </div>
 
-        {/* Charts row */}
         <div className="grid gap-4 lg:grid-cols-3">
           <div className="surface-elevated col-span-2 rounded-2xl p-5">
             <div className="mb-4 flex items-center justify-between">
@@ -217,14 +204,7 @@ function DashboardPage() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
                 <XAxis dataKey="label" stroke="var(--color-muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis stroke="var(--color-muted-foreground)" fontSize={11} tickLine={false} axisLine={false} width={28} />
-                <Tooltip
-                  contentStyle={{
-                    background: "var(--color-card)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: 10,
-                    fontSize: 12,
-                  }}
-                />
+                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 12 }} />
                 <Area type="monotone" dataKey="census" stroke="var(--color-primary)" strokeWidth={2} fill="url(#censusFill)" />
               </AreaChart>
             </ResponsiveContainer>
@@ -307,22 +287,21 @@ function DashboardPage() {
           </div>
         </div>
 
-        {/* Widgets row */}
         <div className="grid gap-4 lg:grid-cols-3">
           <div className="surface-elevated rounded-2xl p-5">
             <div className="mb-3 flex items-center justify-between">
-              <div className="text-sm font-semibold">Upcoming Appointments</div>
+              <div className="text-sm font-semibold">Upcoming Transportation</div>
               <CalendarClock className="h-4 w-4 text-muted-foreground" />
             </div>
             <ul className="space-y-3">
-              {appointments.length === 0 && (
+              {transport.length === 0 && (
                 <li className="text-sm text-muted-foreground">No appointments scheduled.</li>
               )}
-              {appointments.slice(0, 5).map((a) => (
+              {transport.slice(0, 5).map((a) => (
                 <li key={a.id} className="flex items-start justify-between gap-3 border-b border-border/60 pb-3 last:border-0">
                   <div>
-                    <div className="text-sm font-medium">{a.reason ?? "Appointment"}</div>
-                    <div className="text-xs text-muted-foreground">{formatDate(a.appointment_at)}</div>
+                    <div className="text-sm font-medium">{a.appointment_type ?? a.destination ?? "Transport"}</div>
+                    <div className="text-xs text-muted-foreground">{formatDate(a.departure_time)}</div>
                   </div>
                   <Badge variant="secondary" className="text-[10px]">Scheduled</Badge>
                 </li>

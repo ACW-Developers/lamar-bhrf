@@ -53,7 +53,7 @@ type Resident = {
   status: string;
   admission_date: string | null;
   primary_diagnosis: string | null;
-  assigned_bhp_id: string | null;
+  assigned_bhp: string | null;
 };
 
 function initials(f?: string, l?: string) {
@@ -72,7 +72,7 @@ const statusTone = (status: string) =>
 function ResidentsPage() {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
-  const [tab, setTab] = useState<"all" | "active" | "pending" | "discharged">("active");
+  const [tab, setTab] = useState<"all" | "active" | "pending_admission" | "discharged">("active");
   const [open, setOpen] = useState(false);
 
   const { data, isLoading } = useQuery({
@@ -80,7 +80,7 @@ function ResidentsPage() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("residents")
-        .select("id, mrn, first_name, last_name, date_of_birth, gender, status, admission_date, primary_diagnosis, assigned_bhp_id")
+        .select("id, mrn, first_name, last_name, date_of_birth, gender, status, admission_date, primary_diagnosis, assigned_bhp")
         .order("created_at", { ascending: false });
       if (error) throw error;
       return (data ?? []) as Resident[];

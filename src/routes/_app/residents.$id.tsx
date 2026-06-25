@@ -29,51 +29,22 @@ function ResidentDetailPage() {
 
   const { data: notes } = useQuery({
     queryKey: ["resident-notes", id],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("progress_notes")
-        .select("id, content, note_type, created_at")
-        .eq("resident_id", id)
-        .order("created_at", { ascending: false });
-      return data ?? [];
-    },
+    queryFn: async () => (await supabase.from("progress_notes").select("id, content, note_type, created_at").eq("resident_id", id).order("created_at", { ascending: false })).data ?? [],
   });
 
   const { data: plans } = useQuery({
     queryKey: ["resident-plans", id],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("treatment_plans")
-        .select("id, title, status, start_date, next_review_date")
-        .eq("resident_id", id)
-        .order("created_at", { ascending: false });
-      return data ?? [];
-    },
+    queryFn: async () => (await supabase.from("treatment_plans").select("id, problem_summary, status, plan_date, review_date").eq("resident_id", id).order("created_at", { ascending: false })).data ?? [],
   });
 
   const { data: meds } = useQuery({
     queryKey: ["resident-meds", id],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("medication_logs")
-        .select("id, medication_name, dosage, status, administered_at")
-        .eq("resident_id", id)
-        .order("administered_at", { ascending: false })
-        .limit(20);
-      return data ?? [];
-    },
+    queryFn: async () => (await supabase.from("medication_logs").select("id, medication_name, dosage, status, administered_at").eq("resident_id", id).order("administered_at", { ascending: false }).limit(20)).data ?? [],
   });
 
   const { data: incidents } = useQuery({
     queryKey: ["resident-incidents", id],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("incidents")
-        .select("id, title, severity, status, occurred_at")
-        .eq("resident_id", id)
-        .order("occurred_at", { ascending: false });
-      return data ?? [];
-    },
+    queryFn: async () => (await supabase.from("incidents").select("id, incident_type, description, severity, status, incident_date").eq("resident_id", id).order("incident_date", { ascending: false })).data ?? [],
   });
 
   if (!resident) {
@@ -128,8 +99,8 @@ function ResidentDetailPage() {
           <TabsContent value="overview" className="mt-6 space-y-4">
             <div className="grid gap-4 md:grid-cols-3">
               <InfoCard icon={Calendar} label="Length of stay" value={lengthOfStay(resident.admission_date)} />
-              <InfoCard icon={ClipboardList} label="Active plans" value={String((plans ?? []).filter((p) => p.status === "active").length)} />
-              <InfoCard icon={Activity} label="Notes (30d)" value={String((notes ?? []).filter((n) => Date.now() - new Date(n.created_at).getTime() < 30 * 86400_000).length)} />
+              <InfoCard icon={ClipboardList} label="Active plans" value={String((plans ?? []).filter((p) => p.status === "approved").length)} />
+              <InfoCard icon={Activity} label="Notes (30d)" value={String((notes ?? []).filter((n) => Date.now() - new Date(n.created_at).getTime() < 30 * 86_400_000).length)} />
             </div>
             <div className="surface-elevated rounded-2xl p-6">
               <h3 className="mb-3 text-sm font-semibold">Demographics & contact</h3>
@@ -137,9 +108,11 @@ function ResidentDetailPage() {
                 <Field label="Phone" value={resident.phone} />
                 <Field label="Email" value={resident.email} />
                 <Field label="Address" value={resident.address} />
+                <Field label="Room" value={resident.room_number} />
                 <Field label="Emergency contact" value={resident.emergency_contact_name} />
                 <Field label="Emergency phone" value={resident.emergency_contact_phone} />
-                <Field label="Insurance" value={resident.insurance_provider} />
+                <Field label="Substance history" value={resident.substance_history} />
+                <Field label="Internal notes" value={resident.notes} />
               </dl>
             </div>
           </TabsContent>
@@ -167,12 +140,12 @@ function ResidentDetailPage() {
               (plans ?? []).map((p) => (
                 <div key={p.id} className="surface-elevated flex items-center justify-between rounded-xl p-4">
                   <div>
-                    <div className="font-medium">{p.title}</div>
+                    <div className="font-medium">{p.problem_summary ?? "Treatment plan"}</div>
                     <div className="text-xs text-muted-foreground">
-                      Started {formatDate(p.start_date)} · Next review {formatDate(p.next_review_date)}
+                      Plan date {formatDate(p.plan_date)} · Next review {formatDate(p.review_date)}
                     </div>
                   </div>
-                  <StatusPill status={p.status} tone={p.status === "active" ? "success" : "default"} />
+                  <StatusPill status={p.status} tone={p.status === "approved" ? "success" : "warning"} />
                 </div>
               ))
             )}
@@ -186,7 +159,7 @@ function ResidentDetailPage() {
                 <div key={m.id} className="surface-elevated flex items-center justify-between rounded-xl p-4">
                   <div>
                     <div className="font-medium">{m.medication_name}</div>
-                    <div className="text-xs text-muted-foreground">{m.dosage} · {relativeTime(m.administered_at)}</div>
+                    <div className="text-xs text-muted-foreground">{m.dosage ?? ""} · {relativeTime(m.administered_at)}</div>
                   </div>
                   <StatusPill status={m.status} tone={m.status === "administered" ? "success" : m.status === "refused" ? "destructive" : "warning"} />
                 </div>
@@ -201,9 +174,9 @@ function ResidentDetailPage() {
               (incidents ?? []).map((inc) => (
                 <div key={inc.id} className="surface-elevated flex items-center justify-between rounded-xl p-4">
                   <div>
-                    <div className="font-medium">{inc.title}</div>
-                    <div className="text-xs text-muted-foreground">
-                      Severity: {inc.severity ?? "—"} · {relativeTime(inc.occurred_at)}
+                    <div className="font-medium capitalize">{inc.incident_type}</div>
+                    <div className="text-xs text-muted-foreground line-clamp-1">
+                      Severity: {inc.severity ?? "—"} · {relativeTime(inc.incident_date)} · {inc.description.slice(0, 80)}
                     </div>
                   </div>
                   <StatusPill status={inc.status} tone={inc.status === "resolved" ? "success" : "destructive"} />
