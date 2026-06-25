@@ -228,7 +228,7 @@ function NewResidentDialog({ onCreated }: { onCreated: () => void }) {
         last_name: form.last_name,
         date_of_birth: form.date_of_birth || null,
         gender: form.gender || null,
-        status: form.status,
+        status: form.status as "active" | "discharged" | "on_leave" | "pending_admission",
         primary_diagnosis: form.primary_diagnosis || null,
         admission_date: form.status === "active" ? new Date().toISOString().slice(0, 10) : null,
       });
