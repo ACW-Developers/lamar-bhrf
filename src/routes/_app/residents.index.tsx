@@ -215,7 +215,7 @@ function NewResidentDialog({ onCreated }: { onCreated: () => void }) {
     last_name: "",
     date_of_birth: "",
     gender: "",
-    status: "pending",
+    status: "pending_admission",
     primary_diagnosis: "",
   });
 
@@ -277,7 +277,7 @@ function NewResidentDialog({ onCreated }: { onCreated: () => void }) {
           <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="pending">Pending admission</SelectItem>
+              <SelectItem value="pending_admission">Pending admission</SelectItem>
               <SelectItem value="active">Active</SelectItem>
               <SelectItem value="on_leave">On leave</SelectItem>
             </SelectContent>
