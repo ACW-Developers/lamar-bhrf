@@ -1,0 +1,135 @@
+import { Link, useRouterState } from "@tanstack/react-router";
+import {
+  LayoutDashboard,
+  Users,
+  ClipboardPlus,
+  FileText,
+  ListChecks,
+  StickyNote,
+  Activity,
+  Pill,
+  UsersRound,
+  HeartPulse,
+  ShieldCheck,
+  AlertTriangle,
+  Car,
+  Settings,
+  LifeBuoy,
+} from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
+import { useAuth, type AppRole } from "@/lib/auth";
+
+type NavItem = {
+  title: string;
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+  roles?: AppRole[];
+};
+
+const clinical: NavItem[] = [
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Residents", url: "/residents", icon: Users },
+  { title: "Admissions", url: "/admissions", icon: ClipboardPlus },
+  { title: "Assessments", url: "/assessments", icon: FileText, roles: ["administrator", "bhp"] },
+  { title: "Treatment Plans", url: "/treatment-plans", icon: ListChecks, roles: ["administrator", "bhp"] },
+  { title: "Progress Notes", url: "/progress-notes", icon: StickyNote },
+];
+
+const daily: NavItem[] = [
+  { title: "Daily Services", url: "/daily-services", icon: Activity },
+  { title: "Medication", url: "/medication", icon: Pill },
+  { title: "Group Sessions", url: "/group-sessions", icon: UsersRound },
+  { title: "Individual Therapy", url: "/therapy", icon: HeartPulse, roles: ["administrator", "bhp"] },
+  { title: "Transportation", url: "/transportation", icon: Car },
+];
+
+const oversight: NavItem[] = [
+  { title: "Supervision", url: "/supervision", icon: ShieldCheck, roles: ["administrator", "bhp"] },
+  { title: "Incidents", url: "/incidents", icon: AlertTriangle },
+];
+
+const system: NavItem[] = [
+  { title: "Settings", url: "/settings", icon: Settings },
+];
+
+function filterByRole(items: NavItem[], roles: AppRole[]): NavItem[] {
+  return items.filter((i) => !i.roles || i.roles.some((r) => roles.includes(r)));
+}
+
+export function AppSidebar() {
+  const { roles } = useAuth();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const isActive = (url: string) =>
+    pathname === url || (url !== "/dashboard" && pathname.startsWith(url));
+
+  const Section = ({ label, items }: { label: string; items: NavItem[] }) => {
+    const visible = filterByRole(items, roles);
+    if (!visible.length) return null;
+    return (
+      <SidebarGroup>
+        <SidebarGroupLabel className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
+          {label}
+        </SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            {visible.map((item) => (
+              <SidebarMenuItem key={item.url}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive(item.url)}
+                  className="data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-medium"
+                >
+                  <Link to={item.url}>
+                    <item.icon className="h-4 w-4" />
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    );
+  };
+
+  return (
+    <Sidebar collapsible="icon" className="border-r">
+      <SidebarHeader className="border-b">
+        <Link to="/dashboard" className="flex items-center gap-2.5 px-2 py-2">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-sm">
+            <LifeBuoy className="h-5 w-5" />
+          </div>
+          <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
+            <span className="text-sm font-semibold tracking-tight">Lamar BHRF</span>
+            <span className="text-[10px] text-muted-foreground">Arizona • Residential</span>
+          </div>
+        </Link>
+      </SidebarHeader>
+
+      <SidebarContent>
+        <Section label="Clinical" items={clinical} />
+        <Section label="Daily Operations" items={daily} />
+        <Section label="Oversight" items={oversight} />
+        <Section label="System" items={system} />
+      </SidebarContent>
+
+      <SidebarFooter className="border-t p-2">
+        <div className="px-2 py-1.5 text-[10px] text-muted-foreground group-data-[collapsible=icon]:hidden">
+          HIPAA-aligned • v1.0
+        </div>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}

@@ -9,38 +9,257 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppTreatmentPlansRouteImport } from './routes/_app/treatment-plans'
+import { Route as AppTransportationRouteImport } from './routes/_app/transportation'
+import { Route as AppTherapyRouteImport } from './routes/_app/therapy'
+import { Route as AppSupervisionRouteImport } from './routes/_app/supervision'
+import { Route as AppSettingsRouteImport } from './routes/_app/settings'
+import { Route as AppProgressNotesRouteImport } from './routes/_app/progress-notes'
+import { Route as AppMedicationRouteImport } from './routes/_app/medication'
+import { Route as AppIncidentsRouteImport } from './routes/_app/incidents'
+import { Route as AppGroupSessionsRouteImport } from './routes/_app/group-sessions'
+import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppDailyServicesRouteImport } from './routes/_app/daily-services'
+import { Route as AppAssessmentsRouteImport } from './routes/_app/assessments'
+import { Route as AppAdmissionsRouteImport } from './routes/_app/admissions'
+import { Route as AppResidentsIndexRouteImport } from './routes/_app/residents.index'
+import { Route as AppResidentsIdRouteImport } from './routes/_app/residents.$id'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppTreatmentPlansRoute = AppTreatmentPlansRouteImport.update({
+  id: '/treatment-plans',
+  path: '/treatment-plans',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTransportationRoute = AppTransportationRouteImport.update({
+  id: '/transportation',
+  path: '/transportation',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTherapyRoute = AppTherapyRouteImport.update({
+  id: '/therapy',
+  path: '/therapy',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSupervisionRoute = AppSupervisionRouteImport.update({
+  id: '/supervision',
+  path: '/supervision',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProgressNotesRoute = AppProgressNotesRouteImport.update({
+  id: '/progress-notes',
+  path: '/progress-notes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMedicationRoute = AppMedicationRouteImport.update({
+  id: '/medication',
+  path: '/medication',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppIncidentsRoute = AppIncidentsRouteImport.update({
+  id: '/incidents',
+  path: '/incidents',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppGroupSessionsRoute = AppGroupSessionsRouteImport.update({
+  id: '/group-sessions',
+  path: '/group-sessions',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDailyServicesRoute = AppDailyServicesRouteImport.update({
+  id: '/daily-services',
+  path: '/daily-services',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAssessmentsRoute = AppAssessmentsRouteImport.update({
+  id: '/assessments',
+  path: '/assessments',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdmissionsRoute = AppAdmissionsRouteImport.update({
+  id: '/admissions',
+  path: '/admissions',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResidentsIndexRoute = AppResidentsIndexRouteImport.update({
+  id: '/residents/',
+  path: '/residents/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResidentsIdRoute = AppResidentsIdRouteImport.update({
+  id: '/residents/$id',
+  path: '/residents/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/admissions': typeof AppAdmissionsRoute
+  '/assessments': typeof AppAssessmentsRoute
+  '/daily-services': typeof AppDailyServicesRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/group-sessions': typeof AppGroupSessionsRoute
+  '/incidents': typeof AppIncidentsRoute
+  '/medication': typeof AppMedicationRoute
+  '/progress-notes': typeof AppProgressNotesRoute
+  '/settings': typeof AppSettingsRoute
+  '/supervision': typeof AppSupervisionRoute
+  '/therapy': typeof AppTherapyRoute
+  '/transportation': typeof AppTransportationRoute
+  '/treatment-plans': typeof AppTreatmentPlansRoute
+  '/residents/$id': typeof AppResidentsIdRoute
+  '/residents/': typeof AppResidentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/admissions': typeof AppAdmissionsRoute
+  '/assessments': typeof AppAssessmentsRoute
+  '/daily-services': typeof AppDailyServicesRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/group-sessions': typeof AppGroupSessionsRoute
+  '/incidents': typeof AppIncidentsRoute
+  '/medication': typeof AppMedicationRoute
+  '/progress-notes': typeof AppProgressNotesRoute
+  '/settings': typeof AppSettingsRoute
+  '/supervision': typeof AppSupervisionRoute
+  '/therapy': typeof AppTherapyRoute
+  '/transportation': typeof AppTransportationRoute
+  '/treatment-plans': typeof AppTreatmentPlansRoute
+  '/residents/$id': typeof AppResidentsIdRoute
+  '/residents': typeof AppResidentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_app/admissions': typeof AppAdmissionsRoute
+  '/_app/assessments': typeof AppAssessmentsRoute
+  '/_app/daily-services': typeof AppDailyServicesRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/group-sessions': typeof AppGroupSessionsRoute
+  '/_app/incidents': typeof AppIncidentsRoute
+  '/_app/medication': typeof AppMedicationRoute
+  '/_app/progress-notes': typeof AppProgressNotesRoute
+  '/_app/settings': typeof AppSettingsRoute
+  '/_app/supervision': typeof AppSupervisionRoute
+  '/_app/therapy': typeof AppTherapyRoute
+  '/_app/transportation': typeof AppTransportationRoute
+  '/_app/treatment-plans': typeof AppTreatmentPlansRoute
+  '/_app/residents/$id': typeof AppResidentsIdRoute
+  '/_app/residents/': typeof AppResidentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/admissions'
+    | '/assessments'
+    | '/daily-services'
+    | '/dashboard'
+    | '/group-sessions'
+    | '/incidents'
+    | '/medication'
+    | '/progress-notes'
+    | '/settings'
+    | '/supervision'
+    | '/therapy'
+    | '/transportation'
+    | '/treatment-plans'
+    | '/residents/$id'
+    | '/residents/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/admissions'
+    | '/assessments'
+    | '/daily-services'
+    | '/dashboard'
+    | '/group-sessions'
+    | '/incidents'
+    | '/medication'
+    | '/progress-notes'
+    | '/settings'
+    | '/supervision'
+    | '/therapy'
+    | '/transportation'
+    | '/treatment-plans'
+    | '/residents/$id'
+    | '/residents'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/auth'
+    | '/_app/admissions'
+    | '/_app/assessments'
+    | '/_app/daily-services'
+    | '/_app/dashboard'
+    | '/_app/group-sessions'
+    | '/_app/incidents'
+    | '/_app/medication'
+    | '/_app/progress-notes'
+    | '/_app/settings'
+    | '/_app/supervision'
+    | '/_app/therapy'
+    | '/_app/transportation'
+    | '/_app/treatment-plans'
+    | '/_app/residents/$id'
+    | '/_app/residents/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +267,156 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/treatment-plans': {
+      id: '/_app/treatment-plans'
+      path: '/treatment-plans'
+      fullPath: '/treatment-plans'
+      preLoaderRoute: typeof AppTreatmentPlansRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/transportation': {
+      id: '/_app/transportation'
+      path: '/transportation'
+      fullPath: '/transportation'
+      preLoaderRoute: typeof AppTransportationRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/therapy': {
+      id: '/_app/therapy'
+      path: '/therapy'
+      fullPath: '/therapy'
+      preLoaderRoute: typeof AppTherapyRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/supervision': {
+      id: '/_app/supervision'
+      path: '/supervision'
+      fullPath: '/supervision'
+      preLoaderRoute: typeof AppSupervisionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/progress-notes': {
+      id: '/_app/progress-notes'
+      path: '/progress-notes'
+      fullPath: '/progress-notes'
+      preLoaderRoute: typeof AppProgressNotesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/medication': {
+      id: '/_app/medication'
+      path: '/medication'
+      fullPath: '/medication'
+      preLoaderRoute: typeof AppMedicationRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/incidents': {
+      id: '/_app/incidents'
+      path: '/incidents'
+      fullPath: '/incidents'
+      preLoaderRoute: typeof AppIncidentsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/group-sessions': {
+      id: '/_app/group-sessions'
+      path: '/group-sessions'
+      fullPath: '/group-sessions'
+      preLoaderRoute: typeof AppGroupSessionsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/daily-services': {
+      id: '/_app/daily-services'
+      path: '/daily-services'
+      fullPath: '/daily-services'
+      preLoaderRoute: typeof AppDailyServicesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/assessments': {
+      id: '/_app/assessments'
+      path: '/assessments'
+      fullPath: '/assessments'
+      preLoaderRoute: typeof AppAssessmentsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/admissions': {
+      id: '/_app/admissions'
+      path: '/admissions'
+      fullPath: '/admissions'
+      preLoaderRoute: typeof AppAdmissionsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/residents/': {
+      id: '/_app/residents/'
+      path: '/residents'
+      fullPath: '/residents/'
+      preLoaderRoute: typeof AppResidentsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/residents/$id': {
+      id: '/_app/residents/$id'
+      path: '/residents/$id'
+      fullPath: '/residents/$id'
+      preLoaderRoute: typeof AppResidentsIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppAdmissionsRoute: typeof AppAdmissionsRoute
+  AppAssessmentsRoute: typeof AppAssessmentsRoute
+  AppDailyServicesRoute: typeof AppDailyServicesRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppGroupSessionsRoute: typeof AppGroupSessionsRoute
+  AppIncidentsRoute: typeof AppIncidentsRoute
+  AppMedicationRoute: typeof AppMedicationRoute
+  AppProgressNotesRoute: typeof AppProgressNotesRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSupervisionRoute: typeof AppSupervisionRoute
+  AppTherapyRoute: typeof AppTherapyRoute
+  AppTransportationRoute: typeof AppTransportationRoute
+  AppTreatmentPlansRoute: typeof AppTreatmentPlansRoute
+  AppResidentsIdRoute: typeof AppResidentsIdRoute
+  AppResidentsIndexRoute: typeof AppResidentsIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAdmissionsRoute: AppAdmissionsRoute,
+  AppAssessmentsRoute: AppAssessmentsRoute,
+  AppDailyServicesRoute: AppDailyServicesRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppGroupSessionsRoute: AppGroupSessionsRoute,
+  AppIncidentsRoute: AppIncidentsRoute,
+  AppMedicationRoute: AppMedicationRoute,
+  AppProgressNotesRoute: AppProgressNotesRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppSupervisionRoute: AppSupervisionRoute,
+  AppTherapyRoute: AppTherapyRoute,
+  AppTransportationRoute: AppTransportationRoute,
+  AppTreatmentPlansRoute: AppTreatmentPlansRoute,
+  AppResidentsIdRoute: AppResidentsIdRoute,
+  AppResidentsIndexRoute: AppResidentsIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
