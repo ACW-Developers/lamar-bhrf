@@ -17,12 +17,18 @@ import { Route as AppTransportationRouteImport } from './routes/_app/transportat
 import { Route as AppTherapyRouteImport } from './routes/_app/therapy'
 import { Route as AppSupervisionRouteImport } from './routes/_app/supervision'
 import { Route as AppSettingsRouteImport } from './routes/_app/settings'
+import { Route as AppScheduleRouteImport } from './routes/_app/schedule'
+import { Route as AppReportsRouteImport } from './routes/_app/reports'
 import { Route as AppProgressNotesRouteImport } from './routes/_app/progress-notes'
 import { Route as AppMedicationRouteImport } from './routes/_app/medication'
 import { Route as AppIncidentsRouteImport } from './routes/_app/incidents'
 import { Route as AppGroupSessionsRouteImport } from './routes/_app/group-sessions'
+import { Route as AppDocumentsRouteImport } from './routes/_app/documents'
+import { Route as AppDischargesRouteImport } from './routes/_app/discharges'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppDailyServicesRouteImport } from './routes/_app/daily-services'
+import { Route as AppContactsRouteImport } from './routes/_app/contacts'
+import { Route as AppAuditRouteImport } from './routes/_app/audit'
 import { Route as AppAssessmentsRouteImport } from './routes/_app/assessments'
 import { Route as AppAdmissionsRouteImport } from './routes/_app/admissions'
 import { Route as AppResidentsIndexRouteImport } from './routes/_app/residents.index'
@@ -67,6 +73,16 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
+const AppScheduleRoute = AppScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReportsRoute = AppReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppProgressNotesRoute = AppProgressNotesRouteImport.update({
   id: '/progress-notes',
   path: '/progress-notes',
@@ -87,6 +103,16 @@ const AppGroupSessionsRoute = AppGroupSessionsRouteImport.update({
   path: '/group-sessions',
   getParentRoute: () => AppRoute,
 } as any)
+const AppDocumentsRoute = AppDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDischargesRoute = AppDischargesRouteImport.update({
+  id: '/discharges',
+  path: '/discharges',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -95,6 +121,16 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
 const AppDailyServicesRoute = AppDailyServicesRouteImport.update({
   id: '/daily-services',
   path: '/daily-services',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppContactsRoute = AppContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAuditRoute = AppAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => AppRoute,
 } as any)
 const AppAssessmentsRoute = AppAssessmentsRouteImport.update({
@@ -123,12 +159,18 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/admissions': typeof AppAdmissionsRoute
   '/assessments': typeof AppAssessmentsRoute
+  '/audit': typeof AppAuditRoute
+  '/contacts': typeof AppContactsRoute
   '/daily-services': typeof AppDailyServicesRoute
   '/dashboard': typeof AppDashboardRoute
+  '/discharges': typeof AppDischargesRoute
+  '/documents': typeof AppDocumentsRoute
   '/group-sessions': typeof AppGroupSessionsRoute
   '/incidents': typeof AppIncidentsRoute
   '/medication': typeof AppMedicationRoute
   '/progress-notes': typeof AppProgressNotesRoute
+  '/reports': typeof AppReportsRoute
+  '/schedule': typeof AppScheduleRoute
   '/settings': typeof AppSettingsRoute
   '/supervision': typeof AppSupervisionRoute
   '/therapy': typeof AppTherapyRoute
@@ -142,12 +184,18 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/admissions': typeof AppAdmissionsRoute
   '/assessments': typeof AppAssessmentsRoute
+  '/audit': typeof AppAuditRoute
+  '/contacts': typeof AppContactsRoute
   '/daily-services': typeof AppDailyServicesRoute
   '/dashboard': typeof AppDashboardRoute
+  '/discharges': typeof AppDischargesRoute
+  '/documents': typeof AppDocumentsRoute
   '/group-sessions': typeof AppGroupSessionsRoute
   '/incidents': typeof AppIncidentsRoute
   '/medication': typeof AppMedicationRoute
   '/progress-notes': typeof AppProgressNotesRoute
+  '/reports': typeof AppReportsRoute
+  '/schedule': typeof AppScheduleRoute
   '/settings': typeof AppSettingsRoute
   '/supervision': typeof AppSupervisionRoute
   '/therapy': typeof AppTherapyRoute
@@ -163,12 +211,18 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_app/admissions': typeof AppAdmissionsRoute
   '/_app/assessments': typeof AppAssessmentsRoute
+  '/_app/audit': typeof AppAuditRoute
+  '/_app/contacts': typeof AppContactsRoute
   '/_app/daily-services': typeof AppDailyServicesRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/discharges': typeof AppDischargesRoute
+  '/_app/documents': typeof AppDocumentsRoute
   '/_app/group-sessions': typeof AppGroupSessionsRoute
   '/_app/incidents': typeof AppIncidentsRoute
   '/_app/medication': typeof AppMedicationRoute
   '/_app/progress-notes': typeof AppProgressNotesRoute
+  '/_app/reports': typeof AppReportsRoute
+  '/_app/schedule': typeof AppScheduleRoute
   '/_app/settings': typeof AppSettingsRoute
   '/_app/supervision': typeof AppSupervisionRoute
   '/_app/therapy': typeof AppTherapyRoute
@@ -184,12 +238,18 @@ export interface FileRouteTypes {
     | '/auth'
     | '/admissions'
     | '/assessments'
+    | '/audit'
+    | '/contacts'
     | '/daily-services'
     | '/dashboard'
+    | '/discharges'
+    | '/documents'
     | '/group-sessions'
     | '/incidents'
     | '/medication'
     | '/progress-notes'
+    | '/reports'
+    | '/schedule'
     | '/settings'
     | '/supervision'
     | '/therapy'
@@ -203,12 +263,18 @@ export interface FileRouteTypes {
     | '/auth'
     | '/admissions'
     | '/assessments'
+    | '/audit'
+    | '/contacts'
     | '/daily-services'
     | '/dashboard'
+    | '/discharges'
+    | '/documents'
     | '/group-sessions'
     | '/incidents'
     | '/medication'
     | '/progress-notes'
+    | '/reports'
+    | '/schedule'
     | '/settings'
     | '/supervision'
     | '/therapy'
@@ -223,12 +289,18 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_app/admissions'
     | '/_app/assessments'
+    | '/_app/audit'
+    | '/_app/contacts'
     | '/_app/daily-services'
     | '/_app/dashboard'
+    | '/_app/discharges'
+    | '/_app/documents'
     | '/_app/group-sessions'
     | '/_app/incidents'
     | '/_app/medication'
     | '/_app/progress-notes'
+    | '/_app/reports'
+    | '/_app/schedule'
     | '/_app/settings'
     | '/_app/supervision'
     | '/_app/therapy'
@@ -302,6 +374,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/schedule': {
+      id: '/_app/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof AppScheduleRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/reports': {
+      id: '/_app/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AppReportsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/progress-notes': {
       id: '/_app/progress-notes'
       path: '/progress-notes'
@@ -330,6 +416,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppGroupSessionsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/documents': {
+      id: '/_app/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof AppDocumentsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/discharges': {
+      id: '/_app/discharges'
+      path: '/discharges'
+      fullPath: '/discharges'
+      preLoaderRoute: typeof AppDischargesRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
@@ -342,6 +442,20 @@ declare module '@tanstack/react-router' {
       path: '/daily-services'
       fullPath: '/daily-services'
       preLoaderRoute: typeof AppDailyServicesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/contacts': {
+      id: '/_app/contacts'
+      path: '/contacts'
+      fullPath: '/contacts'
+      preLoaderRoute: typeof AppContactsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/audit': {
+      id: '/_app/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AppAuditRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/assessments': {
@@ -378,12 +492,18 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppAdmissionsRoute: typeof AppAdmissionsRoute
   AppAssessmentsRoute: typeof AppAssessmentsRoute
+  AppAuditRoute: typeof AppAuditRoute
+  AppContactsRoute: typeof AppContactsRoute
   AppDailyServicesRoute: typeof AppDailyServicesRoute
   AppDashboardRoute: typeof AppDashboardRoute
+  AppDischargesRoute: typeof AppDischargesRoute
+  AppDocumentsRoute: typeof AppDocumentsRoute
   AppGroupSessionsRoute: typeof AppGroupSessionsRoute
   AppIncidentsRoute: typeof AppIncidentsRoute
   AppMedicationRoute: typeof AppMedicationRoute
   AppProgressNotesRoute: typeof AppProgressNotesRoute
+  AppReportsRoute: typeof AppReportsRoute
+  AppScheduleRoute: typeof AppScheduleRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppSupervisionRoute: typeof AppSupervisionRoute
   AppTherapyRoute: typeof AppTherapyRoute
@@ -396,12 +516,18 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppAdmissionsRoute: AppAdmissionsRoute,
   AppAssessmentsRoute: AppAssessmentsRoute,
+  AppAuditRoute: AppAuditRoute,
+  AppContactsRoute: AppContactsRoute,
   AppDailyServicesRoute: AppDailyServicesRoute,
   AppDashboardRoute: AppDashboardRoute,
+  AppDischargesRoute: AppDischargesRoute,
+  AppDocumentsRoute: AppDocumentsRoute,
   AppGroupSessionsRoute: AppGroupSessionsRoute,
   AppIncidentsRoute: AppIncidentsRoute,
   AppMedicationRoute: AppMedicationRoute,
   AppProgressNotesRoute: AppProgressNotesRoute,
+  AppReportsRoute: AppReportsRoute,
+  AppScheduleRoute: AppScheduleRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppSupervisionRoute: AppSupervisionRoute,
   AppTherapyRoute: AppTherapyRoute,

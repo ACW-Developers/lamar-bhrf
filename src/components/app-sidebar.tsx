@@ -15,6 +15,12 @@ import {
   Car,
   Settings,
   LifeBuoy,
+  LogOut,
+  Users2,
+  CalendarClock,
+  FileLock2,
+  ScrollText,
+  FileBarChart2,
 } from "lucide-react";
 import {
   Sidebar,
@@ -44,6 +50,7 @@ const clinical: NavItem[] = [
   { title: "Assessments", url: "/assessments", icon: FileText, roles: ["administrator", "bhp"] },
   { title: "Treatment Plans", url: "/treatment-plans", icon: ListChecks, roles: ["administrator", "bhp"] },
   { title: "Progress Notes", url: "/progress-notes", icon: StickyNote },
+  { title: "Discharges", url: "/discharges", icon: LogOut },
 ];
 
 const daily: NavItem[] = [
@@ -52,16 +59,22 @@ const daily: NavItem[] = [
   { title: "Group Sessions", url: "/group-sessions", icon: UsersRound },
   { title: "Individual Therapy", url: "/therapy", icon: HeartPulse, roles: ["administrator", "bhp"] },
   { title: "Transportation", url: "/transportation", icon: Car },
+  { title: "Contacts & Visits", url: "/contacts", icon: Users2 },
+  { title: "Documents", url: "/documents", icon: FileLock2 },
 ];
 
 const oversight: NavItem[] = [
   { title: "Supervision", url: "/supervision", icon: ShieldCheck, roles: ["administrator", "bhp"] },
   { title: "Incidents", url: "/incidents", icon: AlertTriangle },
+  { title: "Schedule & Handoff", url: "/schedule", icon: CalendarClock },
+  { title: "Reports", url: "/reports", icon: FileBarChart2 },
+  { title: "Audit Log", url: "/audit", icon: ScrollText, roles: ["administrator"] },
 ];
 
 const system: NavItem[] = [
   { title: "Settings", url: "/settings", icon: Settings },
 ];
+
 
 function filterByRole(items: NavItem[], roles: AppRole[]): NavItem[] {
   return items.filter((i) => !i.roles || i.roles.some((r) => roles.includes(r)));

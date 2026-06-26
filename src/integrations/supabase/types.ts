@@ -167,6 +167,39 @@ export type Database = {
           },
         ]
       }
+      audit_logs: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_id: string | null
+          changes: Json | null
+          created_at: string
+          id: string
+          record_id: string | null
+          table_name: string
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_id?: string | null
+          changes?: Json | null
+          created_at?: string
+          id?: string
+          record_id?: string | null
+          table_name: string
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_id?: string | null
+          changes?: Json | null
+          created_at?: string
+          id?: string
+          record_id?: string | null
+          table_name?: string
+        }
+        Relationships: []
+      }
       daily_observations: {
         Row: {
           adl_support: string | null
@@ -217,6 +250,118 @@ export type Database = {
           },
           {
             foreignKeyName: "daily_observations_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discharges: {
+        Row: {
+          actual_date: string | null
+          aftercare_plan: string | null
+          created_at: string
+          created_by: string | null
+          destination: string | null
+          discharge_type: string | null
+          follow_up_completed: boolean
+          follow_up_date: string | null
+          follow_up_notes: string | null
+          id: string
+          planned_date: string | null
+          resident_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          actual_date?: string | null
+          aftercare_plan?: string | null
+          created_at?: string
+          created_by?: string | null
+          destination?: string | null
+          discharge_type?: string | null
+          follow_up_completed?: boolean
+          follow_up_date?: string | null
+          follow_up_notes?: string | null
+          id?: string
+          planned_date?: string | null
+          resident_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          actual_date?: string | null
+          aftercare_plan?: string | null
+          created_at?: string
+          created_by?: string | null
+          destination?: string | null
+          discharge_type?: string | null
+          follow_up_completed?: boolean
+          follow_up_date?: string | null
+          follow_up_notes?: string | null
+          id?: string
+          planned_date?: string | null
+          resident_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discharges_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_contacts: {
+        Row: {
+          can_visit: boolean
+          created_at: string
+          created_by: string | null
+          email: string | null
+          id: string
+          is_emergency: boolean
+          name: string
+          notes: string | null
+          phone: string | null
+          relationship: string | null
+          resident_id: string
+          updated_at: string
+        }
+        Insert: {
+          can_visit?: boolean
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          is_emergency?: boolean
+          name: string
+          notes?: string | null
+          phone?: string | null
+          relationship?: string | null
+          resident_id: string
+          updated_at?: string
+        }
+        Update: {
+          can_visit?: boolean
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          is_emergency?: boolean
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          relationship?: string | null
+          resident_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_contacts_resident_id_fkey"
             columns: ["resident_id"]
             isOneToOne: false
             referencedRelation: "residents"
@@ -518,6 +663,50 @@ export type Database = {
           },
         ]
       }
+      resident_documents: {
+        Row: {
+          category: string | null
+          created_at: string
+          id: string
+          mime_type: string | null
+          name: string
+          resident_id: string
+          size_bytes: number | null
+          storage_path: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          mime_type?: string | null
+          name: string
+          resident_id: string
+          size_bytes?: number | null
+          storage_path: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          mime_type?: string | null
+          name?: string
+          resident_id?: string
+          size_bytes?: number | null
+          storage_path?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resident_documents_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       residents: {
         Row: {
           address: string | null
@@ -615,6 +804,56 @@ export type Database = {
           {
             foreignKeyName: "residents_created_by_fkey"
             columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_shifts: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          end_time: string
+          handoff_notes: string | null
+          id: string
+          notes: string | null
+          shift_date: string
+          shift_role: string | null
+          staff_id: string
+          start_time: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          end_time: string
+          handoff_notes?: string | null
+          id?: string
+          notes?: string | null
+          shift_date: string
+          shift_role?: string | null
+          staff_id: string
+          start_time: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          end_time?: string
+          handoff_notes?: string | null
+          id?: string
+          notes?: string | null
+          shift_date?: string
+          shift_role?: string | null
+          staff_id?: string
+          start_time?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_shifts_staff_id_fkey"
+            columns: ["staff_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -921,6 +1160,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      visitor_logs: {
+        Row: {
+          check_in: string
+          check_out: string | null
+          created_at: string
+          id: string
+          logged_by: string | null
+          notes: string | null
+          relationship: string | null
+          resident_id: string
+          visitor_name: string
+        }
+        Insert: {
+          check_in?: string
+          check_out?: string | null
+          created_at?: string
+          id?: string
+          logged_by?: string | null
+          notes?: string | null
+          relationship?: string | null
+          resident_id: string
+          visitor_name: string
+        }
+        Update: {
+          check_in?: string
+          check_out?: string | null
+          created_at?: string
+          id?: string
+          logged_by?: string | null
+          notes?: string | null
+          relationship?: string | null
+          resident_id?: string
+          visitor_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visitor_logs_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
