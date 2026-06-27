@@ -23,6 +23,7 @@ export type Database = {
           id: string
           insurance_info: string | null
           intake_date: string
+          intake_form: Json
           notes: string | null
           presenting_problem: string | null
           referral_source: string | null
@@ -38,6 +39,7 @@ export type Database = {
           id?: string
           insurance_info?: string | null
           intake_date?: string
+          intake_form?: Json
           notes?: string | null
           presenting_problem?: string | null
           referral_source?: string | null
@@ -53,6 +55,7 @@ export type Database = {
           id?: string
           insurance_info?: string | null
           intake_date?: string
+          intake_form?: Json
           notes?: string | null
           presenting_problem?: string | null
           referral_source?: string | null
@@ -94,6 +97,7 @@ export type Database = {
           created_by: string | null
           findings: string | null
           id: string
+          intake_data: Json
           recommendations: string | null
           resident_id: string
           risk_level: string | null
@@ -111,6 +115,7 @@ export type Database = {
           created_by?: string | null
           findings?: string | null
           id?: string
+          intake_data?: Json
           recommendations?: string | null
           resident_id: string
           risk_level?: string | null
@@ -128,6 +133,7 @@ export type Database = {
           created_by?: string | null
           findings?: string | null
           id?: string
+          intake_data?: Json
           recommendations?: string | null
           resident_id?: string
           risk_level?: string | null
