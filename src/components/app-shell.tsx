@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { Bell, LogOut, Search, Moon, Sun } from "lucide-react";
+import { Bell, LogOut, Search, Moon, Sun, UserCircle } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { useAuth, ROLE_SHORT } from "@/lib/auth";
