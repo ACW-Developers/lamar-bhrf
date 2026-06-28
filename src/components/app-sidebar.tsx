@@ -14,7 +14,6 @@ import {
   AlertTriangle,
   Car,
   Settings,
-  LifeBuoy,
   LogOut,
   Users2,
   CalendarClock,
@@ -22,6 +21,7 @@ import {
   ScrollText,
   FileBarChart2,
 } from "lucide-react";
+import logoAsset from "@/assets/lamar-logo.png.asset.json";
 import {
   Sidebar,
   SidebarContent,
@@ -120,14 +120,12 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b">
-        <Link to="/dashboard" className="flex items-center gap-2.5 px-2 py-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-sm">
-            <LifeBuoy className="h-5 w-5" />
-          </div>
-          <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="text-sm font-semibold tracking-tight">Lamar BHRF</span>
-            <span className="text-[10px] text-muted-foreground">Arizona • Residential</span>
-          </div>
+        <Link to="/dashboard" className="flex items-center justify-center px-2 py-3">
+          <img
+            src={logoAsset.url}
+            alt="Lamar BHRF"
+            className="h-10 w-auto object-contain group-data-[collapsible=icon]:h-7"
+          />
         </Link>
       </SidebarHeader>
 

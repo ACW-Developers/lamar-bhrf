@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { Bell, LogOut, Search, Moon, Sun } from "lucide-react";
+import { Bell, LogOut, Search, Moon, Sun, UserCircle } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { useAuth, ROLE_SHORT } from "@/lib/auth";
@@ -110,6 +110,10 @@ export function AppShell({ children }: { children?: ReactNode }) {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate({ to: "/profile" })}>
+                    <UserCircle className="mr-2 h-4 w-4" />
+                    Profile
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate({ to: "/settings" })}>
                     Settings
                   </DropdownMenuItem>
