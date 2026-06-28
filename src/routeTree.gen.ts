@@ -20,6 +20,7 @@ import { Route as AppSettingsRouteImport } from './routes/_app/settings'
 import { Route as AppScheduleRouteImport } from './routes/_app/schedule'
 import { Route as AppReportsRouteImport } from './routes/_app/reports'
 import { Route as AppProgressNotesRouteImport } from './routes/_app/progress-notes'
+import { Route as AppProfileRouteImport } from './routes/_app/profile'
 import { Route as AppMedicationRouteImport } from './routes/_app/medication'
 import { Route as AppIncidentsRouteImport } from './routes/_app/incidents'
 import { Route as AppGroupSessionsRouteImport } from './routes/_app/group-sessions'
@@ -86,6 +87,11 @@ const AppReportsRoute = AppReportsRouteImport.update({
 const AppProgressNotesRoute = AppProgressNotesRouteImport.update({
   id: '/progress-notes',
   path: '/progress-notes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => AppRoute,
 } as any)
 const AppMedicationRoute = AppMedicationRouteImport.update({
@@ -168,6 +174,7 @@ export interface FileRoutesByFullPath {
   '/group-sessions': typeof AppGroupSessionsRoute
   '/incidents': typeof AppIncidentsRoute
   '/medication': typeof AppMedicationRoute
+  '/profile': typeof AppProfileRoute
   '/progress-notes': typeof AppProgressNotesRoute
   '/reports': typeof AppReportsRoute
   '/schedule': typeof AppScheduleRoute
@@ -193,6 +200,7 @@ export interface FileRoutesByTo {
   '/group-sessions': typeof AppGroupSessionsRoute
   '/incidents': typeof AppIncidentsRoute
   '/medication': typeof AppMedicationRoute
+  '/profile': typeof AppProfileRoute
   '/progress-notes': typeof AppProgressNotesRoute
   '/reports': typeof AppReportsRoute
   '/schedule': typeof AppScheduleRoute
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/_app/group-sessions': typeof AppGroupSessionsRoute
   '/_app/incidents': typeof AppIncidentsRoute
   '/_app/medication': typeof AppMedicationRoute
+  '/_app/profile': typeof AppProfileRoute
   '/_app/progress-notes': typeof AppProgressNotesRoute
   '/_app/reports': typeof AppReportsRoute
   '/_app/schedule': typeof AppScheduleRoute
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/group-sessions'
     | '/incidents'
     | '/medication'
+    | '/profile'
     | '/progress-notes'
     | '/reports'
     | '/schedule'
@@ -272,6 +282,7 @@ export interface FileRouteTypes {
     | '/group-sessions'
     | '/incidents'
     | '/medication'
+    | '/profile'
     | '/progress-notes'
     | '/reports'
     | '/schedule'
@@ -298,6 +309,7 @@ export interface FileRouteTypes {
     | '/_app/group-sessions'
     | '/_app/incidents'
     | '/_app/medication'
+    | '/_app/profile'
     | '/_app/progress-notes'
     | '/_app/reports'
     | '/_app/schedule'
@@ -393,6 +405,13 @@ declare module '@tanstack/react-router' {
       path: '/progress-notes'
       fullPath: '/progress-notes'
       preLoaderRoute: typeof AppProgressNotesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/medication': {
@@ -501,6 +520,7 @@ interface AppRouteChildren {
   AppGroupSessionsRoute: typeof AppGroupSessionsRoute
   AppIncidentsRoute: typeof AppIncidentsRoute
   AppMedicationRoute: typeof AppMedicationRoute
+  AppProfileRoute: typeof AppProfileRoute
   AppProgressNotesRoute: typeof AppProgressNotesRoute
   AppReportsRoute: typeof AppReportsRoute
   AppScheduleRoute: typeof AppScheduleRoute
@@ -525,6 +545,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppGroupSessionsRoute: AppGroupSessionsRoute,
   AppIncidentsRoute: AppIncidentsRoute,
   AppMedicationRoute: AppMedicationRoute,
+  AppProfileRoute: AppProfileRoute,
   AppProgressNotesRoute: AppProgressNotesRoute,
   AppReportsRoute: AppReportsRoute,
   AppScheduleRoute: AppScheduleRoute,
