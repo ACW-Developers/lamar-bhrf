@@ -110,6 +110,10 @@ export function AppShell({ children }: { children?: ReactNode }) {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate({ to: "/profile" })}>
+                    <UserCircle className="mr-2 h-4 w-4" />
+                    Profile
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate({ to: "/settings" })}>
                     Settings
                   </DropdownMenuItem>
