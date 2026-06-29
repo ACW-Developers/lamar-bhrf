@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Loader2, Mail, Lock, ArrowRight } from "lucide-react";
+import { Loader2, Mail, Lock, ArrowRight, Eye, EyeOff } from "lucide-react";
 import heroAsset from "@/assets/lamar-hero.png.asset.json";
-import logoAsset from "@/assets/lamar-logo.png.asset.json";
+import logoAsset from "@/assets/lamar-logo-v2.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,6 +22,7 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [fullName, setFullName] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -48,7 +49,7 @@ function AuthPage() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        toast.success("Welcome");
+        toast.success("Welcome back");
         navigate({ to: "/dashboard", replace: true });
       }
     } catch (err) {
@@ -61,14 +62,26 @@ function AuthPage() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-[1.05fr_1fr]">
-      {/* Left: hero image, natural state with subtle bottom darken */}
+      {/* Left hero */}
       <div className="relative hidden overflow-hidden lg:block">
         <img
           src={heroAsset.url}
-          alt="Lamar BHRF entrance"
+          alt="Lamar BHRF"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent" />
+        {/* gradient for text legibility */}
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+
+        {/* hero copy bottom-left */}
+        <div className="absolute inset-x-0 bottom-0 p-10 text-white">
+          <h2 className="max-w-xl text-4xl font-semibold leading-tight tracking-tight">
+            Compassionate, structured care — every shift, every resident.
+          </h2>
+          <p className="mt-3 max-w-lg text-sm text-white/85">
+            Lamar BHRF brings clinical documentation, daily operations, and oversight
+            into one secure, HIPAA-aligned workspace.
+          </p>
+        </div>
       </div>
 
       {/* Right: form */}
@@ -76,19 +89,22 @@ function AuthPage() {
         <div className="w-full max-w-md">
           <div className="surface-elevated rounded-2xl p-6 sm:p-8">
             {/* Logo top center */}
-            <div className="mb-6 flex justify-center">
-              <img src={logoAsset.url} alt="Lamar BHRF" className="h-16 w-auto object-contain" />
+            <div className="mb-4 flex flex-col items-center">
+              <img src={logoAsset.url} alt="Lamar BHRF" className="h-14 w-auto object-contain" />
+              <p className="mt-3 text-sm text-muted-foreground">
+                Sign in or sign up to access your workspace.
+              </p>
             </div>
 
             {/* Mode toggle */}
-            <div className="mb-6 grid grid-cols-2 gap-1 rounded-lg bg-muted p-1">
+            <div className="mb-5 grid grid-cols-2 gap-1 rounded-full bg-muted p-1">
               {(["signin", "signup"] as const).map((m) => (
                 <button
                   key={m}
                   type="button"
                   onClick={() => setMode(m)}
                   className={cn(
-                    "rounded-md py-2 text-sm font-medium transition-colors",
+                    "rounded-full py-2 text-sm font-medium transition-colors",
                     mode === m
                       ? "bg-background text-foreground shadow-sm"
                       : "text-muted-foreground hover:text-foreground",
@@ -115,7 +131,7 @@ function AuthPage() {
               )}
 
               <div className="space-y-1.5">
-                <Label htmlFor="email">Email address</Label>
+                <Label htmlFor="email">Email</Label>
                 <div className="relative">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
@@ -124,8 +140,8 @@ function AuthPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@facility.org"
-                    className="pl-9"
+                    placeholder="you@lamarbhrf.com"
+                    className="bg-muted/40 pl-9"
                     autoComplete="email"
                   />
                 </div>
@@ -137,7 +153,7 @@ function AuthPage() {
                   {mode === "signin" && (
                     <button
                       type="button"
-                      className="text-xs text-primary hover:underline"
+                      className="text-xs font-medium text-primary hover:underline"
                       onClick={() =>
                         toast.info("Contact your administrator to reset your password.")
                       }
@@ -150,19 +166,27 @@ function AuthPage() {
                   <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     id="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     minLength={8}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="pl-9"
+                    className="bg-muted/40 pl-9 pr-9"
                     autoComplete={mode === "signin" ? "current-password" : "new-password"}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
                 </div>
               </div>
 
-              <Button type="submit" disabled={submitting} className="h-11 w-full text-sm font-medium">
+              <Button type="submit" disabled={submitting} className="h-11 w-full text-sm font-semibold">
                 {submitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
@@ -172,6 +196,19 @@ function AuthPage() {
               </Button>
             </form>
           </div>
+
+          {/* Powered by footer */}
+          <p className="mt-6 text-center text-xs text-muted-foreground">
+            Powered by{" "}
+            <a
+              href="https://brightpathtechnologies.it.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-primary hover:underline"
+            >
+              BrightPath Technologies
+            </a>
+          </p>
         </div>
       </div>
     </div>
