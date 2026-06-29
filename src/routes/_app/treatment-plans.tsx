@@ -131,7 +131,7 @@ function TreatmentPlansPage() {
       </div>
 
       <ViewPlanDialog
-        plan={(data ?? []).find((p) => p.id === viewing) ?? null}
+        plan={((data ?? []).find((p) => p.id === viewing) ?? null) as PlanRow | null}
         onClose={() => setViewing(null)}
       />
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
