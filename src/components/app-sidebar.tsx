@@ -120,11 +120,11 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b">
-        <Link to="/dashboard" className="flex items-center justify-center px-2 py-3">
+        <Link to="/dashboard" className="flex h-14 items-center justify-center px-3">
           <img
             src={logoAsset.url}
             alt="Lamar BHRF"
-            className="h-10 w-auto object-contain group-data-[collapsible=icon]:h-7"
+            className="h-8 w-auto object-contain group-data-[collapsible=icon]:h-6"
           />
         </Link>
       </SidebarHeader>
