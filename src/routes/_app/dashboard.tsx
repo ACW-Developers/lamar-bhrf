@@ -174,8 +174,10 @@ function DashboardPage() {
             <Badge variant="outline" className="rounded-full px-3 py-1">
               {roles.map((r) => ROLE_SHORT[r]).join(" • ") || "Member"}
             </Badge>
-            <Button size="sm">
-              <UserPlus className="mr-2 h-4 w-4" /> New admission
+            <Button size="sm" asChild>
+              <Link to="/admissions">
+                <UserPlus className="mr-2 h-4 w-4" /> New admission
+              </Link>
             </Button>
           </>
         }
@@ -183,12 +185,24 @@ function DashboardPage() {
 
       <div className="space-y-6 p-4 sm:p-6">
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-          <KpiCard label="Active Residents" value={isLoading ? "—" : activeResidents} icon={Users} tone="primary" hint="In care today" />
-          <KpiCard label="New Admissions" value={isLoading ? "—" : newAdmissions} icon={UserPlus} hint="This month" />
-          <KpiCard label="Discharges" value={isLoading ? "—" : discharges} icon={UserMinus} hint="This month" />
-          <KpiCard label="Open Incidents" value={isLoading ? "—" : openIncidents} icon={AlertTriangle} tone={openIncidents > 0 ? "destructive" : "default"} hint="Needs attention" />
-          <KpiCard label="Plans Due" value={isLoading ? "—" : plansDue} icon={ClipboardList} tone="warning" hint="Within 7 days" />
-          <KpiCard label="Staff On Duty" value={isLoading ? "—" : onDuty} icon={ShieldCheck} hint={`of ${staff.length} total`} />
+          <Link to="/residents" className="block transition-transform hover:-translate-y-0.5">
+            <KpiCard label="Active Residents" value={isLoading ? "—" : activeResidents} icon={Users} tone="primary" hint="In care today" />
+          </Link>
+          <Link to="/admissions" className="block transition-transform hover:-translate-y-0.5">
+            <KpiCard label="New Admissions" value={isLoading ? "—" : newAdmissions} icon={UserPlus} hint="This month" />
+          </Link>
+          <Link to="/discharges" className="block transition-transform hover:-translate-y-0.5">
+            <KpiCard label="Discharges" value={isLoading ? "—" : discharges} icon={UserMinus} hint="This month" />
+          </Link>
+          <Link to="/incidents" className="block transition-transform hover:-translate-y-0.5">
+            <KpiCard label="Open Incidents" value={isLoading ? "—" : openIncidents} icon={AlertTriangle} tone={openIncidents > 0 ? "destructive" : "default"} hint="Needs attention" />
+          </Link>
+          <Link to="/treatment-plans" className="block transition-transform hover:-translate-y-0.5">
+            <KpiCard label="Plans Due" value={isLoading ? "—" : plansDue} icon={ClipboardList} tone="warning" hint="Within 7 days" />
+          </Link>
+          <Link to="/schedule" className="block transition-transform hover:-translate-y-0.5">
+            <KpiCard label="Staff On Duty" value={isLoading ? "—" : onDuty} icon={ShieldCheck} hint={`of ${staff.length} total`} />
+          </Link>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-3">
