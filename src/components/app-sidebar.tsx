@@ -21,7 +21,7 @@ import {
   ScrollText,
   FileBarChart2,
 } from "lucide-react";
-import logoAsset from "@/assets/lamar-logo.png.asset.json";
+import logoAsset from "@/assets/lamar-logo-v2.png.asset.json";
 import {
   Sidebar,
   SidebarContent,
