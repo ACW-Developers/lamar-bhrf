@@ -1085,6 +1085,7 @@ export type Database = {
           resident_id: string
           review_date: string | null
           status: Database["public"]["Enums"]["approval_status"]
+          template_data: Json | null
           updated_at: string
         }
         Insert: {
@@ -1099,6 +1100,7 @@ export type Database = {
           resident_id: string
           review_date?: string | null
           status?: Database["public"]["Enums"]["approval_status"]
+          template_data?: Json | null
           updated_at?: string
         }
         Update: {
@@ -1113,6 +1115,7 @@ export type Database = {
           resident_id?: string
           review_date?: string | null
           status?: Database["public"]["Enums"]["approval_status"]
+          template_data?: Json | null
           updated_at?: string
         }
         Relationships: [

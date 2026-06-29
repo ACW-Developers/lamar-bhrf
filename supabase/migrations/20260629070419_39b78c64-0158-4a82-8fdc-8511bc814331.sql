@@ -1,0 +1,1 @@
+ALTER TABLE public.treatment_plans ADD COLUMN IF NOT EXISTS template_data JSONB;
