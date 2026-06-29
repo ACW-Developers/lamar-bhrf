@@ -134,8 +134,6 @@ function TreatmentPlansPage() {
         plan={((data ?? []).find((p) => p.id === viewing) ?? null) as PlanRow | null}
         onClose={() => setViewing(null)}
       />
-      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-      <Link to="/residents" className="hidden" />
     </div>
   );
 }
