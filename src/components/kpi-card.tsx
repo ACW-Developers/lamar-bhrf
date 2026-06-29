@@ -29,7 +29,7 @@ export function KpiCard({
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1">
           <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{label}</div>
-          <div className="font-serif text-3xl text-foreground tabular-nums">{value}</div>
+          <div className="text-3xl font-semibold text-foreground tabular-nums">{value}</div>
         </div>
         <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl", toneRing)}>
           <Icon className="h-5 w-5" />
