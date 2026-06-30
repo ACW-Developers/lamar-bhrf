@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "7f53cab4-7f1a-4203-af7f-a3933e553c83",
-  "project_id": "34e77569-a2d9-4682-9d82-3506625e8847",
-  "url": "/__l5e/assets-v1/7f53cab4-7f1a-4203-af7f-a3933e553c83/lamar-logo.png",
-  "r2_key": "a/v1/34e77569-a2d9-4682-9d82-3506625e8847/7f53cab4-7f1a-4203-af7f-a3933e553c83/lamar-logo.png",
-  "original_filename": "lamar-logo.png",
-  "size": 141627,
   "content_type": "image/png",
-  "created_at": "2026-06-28T16:03:23Z"
+  "created_at": "2026-06-28T16:03:23Z",
+  "original_filename": "lamar-logo.png",
+  "project_id": "eec95cf0-031e-4364-8897-eef5d83546a4",
+  "r2_key": "a/v1/eec95cf0-031e-4364-8897-eef5d83546a4/7f53cab4-7f1a-4203-af7f-a3933e553c83/lamar-logo.png",
+  "size": 141627,
+  "url": "/__l5e/assets-v1/7f53cab4-7f1a-4203-af7f-a3933e553c83/lamar-logo.png",
+  "version": 1
 }
