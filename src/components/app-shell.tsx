@@ -32,7 +32,7 @@ function ThemeToggle() {
   const [dark, setDark] = useState(false);
   useEffect(() => {
     const stored = localStorage.getItem("lamar-theme");
-    const isDark = stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const isDark = stored === "dark";
     document.documentElement.classList.toggle("dark", isDark);
     setDark(isDark);
   }, []);
