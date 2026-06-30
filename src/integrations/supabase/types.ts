@@ -209,6 +209,7 @@ export type Database = {
       daily_observations: {
         Row: {
           adl_support: string | null
+          attendance: Json | null
           behavior: string | null
           created_at: string
           id: string
@@ -222,6 +223,7 @@ export type Database = {
         }
         Insert: {
           adl_support?: string | null
+          attendance?: Json | null
           behavior?: string | null
           created_at?: string
           id?: string
@@ -235,6 +237,7 @@ export type Database = {
         }
         Update: {
           adl_support?: string | null
+          attendance?: Json | null
           behavior?: string | null
           created_at?: string
           id?: string
