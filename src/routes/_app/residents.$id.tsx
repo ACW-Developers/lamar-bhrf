@@ -312,7 +312,7 @@ function EditResidentDialog({
 
   const m = useMutation({
     mutationFn: async () => {
-      const patch: Record<string, unknown> = {
+      const patch = {
         first_name: form.first_name,
         last_name: form.last_name,
         date_of_birth: form.date_of_birth || null,
