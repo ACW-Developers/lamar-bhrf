@@ -1,0 +1,3 @@
+UPDATE public.user_roles SET role='administrator' WHERE user_id='96ce929b-e92c-419c-910f-a5c1ce8361a4';
+INSERT INTO public.user_roles (user_id, role) SELECT '96ce929b-e92c-419c-910f-a5c1ce8361a4','administrator' WHERE NOT EXISTS (SELECT 1 FROM public.user_roles WHERE user_id='96ce929b-e92c-419c-910f-a5c1ce8361a4' AND role='administrator');
+UPDATE public.profiles SET full_name='System Administrator' WHERE id='96ce929b-e92c-419c-910f-a5c1ce8361a4';
