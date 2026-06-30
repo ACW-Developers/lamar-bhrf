@@ -317,7 +317,7 @@ function EditResidentDialog({
         last_name: form.last_name,
         date_of_birth: form.date_of_birth || null,
         gender: form.gender || null,
-        status: form.status,
+        status: form.status as "active" | "discharged" | "on_leave" | "pending_admission",
         admission_date: form.admission_date || (form.status === "active" && !resident.admission_date ? new Date().toISOString().slice(0, 10) : resident.admission_date),
         primary_diagnosis: form.primary_diagnosis || null,
         phone: form.phone || null,
