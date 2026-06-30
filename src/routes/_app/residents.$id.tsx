@@ -27,6 +27,12 @@ export const Route = createFileRoute("/_app/residents/$id")({
 
 function ResidentDetailPage() {
   const { id } = useParams({ from: "/_app/residents/$id" });
+  const { hasRole } = useAuth();
+  const isAdmin = hasRole("administrator");
+  const qc = useQueryClient();
+  const navigate = useNavigate();
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const { data: resident } = useQuery({
     queryKey: ["resident", id],
