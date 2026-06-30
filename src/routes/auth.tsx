@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Loader2, Mail, Lock, ArrowRight, Eye, EyeOff } from "lucide-react";
-import heroAsset from "@/assets/lamar-hero.png.asset.json";
-import logoAsset from "@/assets/lamar-logo-v2.png.asset.json";
+import heroImage from "@/assets/lamar-hero.png";
+import logoImage from "@/assets/lamar-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
