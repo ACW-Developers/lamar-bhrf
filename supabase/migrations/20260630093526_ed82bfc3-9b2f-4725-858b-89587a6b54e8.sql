@@ -1,0 +1,1 @@
+ALTER TABLE public.daily_observations ADD COLUMN IF NOT EXISTS attendance JSONB;
