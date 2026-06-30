@@ -65,7 +65,7 @@ function AuthPage() {
       {/* Left hero */}
       <div className="relative hidden overflow-hidden lg:block">
         <img
-          src={heroAsset.url}
+          src={heroImage}
           alt="Lamar BHRF"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -90,7 +90,7 @@ function AuthPage() {
           <div className="surface-elevated rounded-2xl p-6 sm:p-8">
             {/* Logo top center */}
             <div className="mb-4 flex flex-col items-center">
-              <img src={logoAsset.url} alt="Lamar BHRF" className="h-14 w-auto object-contain" />
+              <img src={logoImage} alt="Lamar BHRF" className="h-14 w-auto object-contain" />
               <p className="mt-3 text-sm text-muted-foreground">
                 Sign in or sign up to access your workspace.
               </p>
