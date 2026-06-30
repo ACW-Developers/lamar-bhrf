@@ -20,7 +20,7 @@ import { useAuth } from "@/lib/auth";
 import { IntakeAssessmentFormFields, emptyIntakeAssessment, type IntakeAssessmentData, SYMPTOMS } from "@/components/intake-assessment-form";
 
 export const Route = createFileRoute("/_app/assessments")({
-  head: () => ({ meta: [{ title: "Assessments — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Assessments - Lamar BHRF" }] }),
   component: AssessmentsPage,
 });
 
@@ -89,7 +89,7 @@ function AssessmentsPage() {
                     <TableCell className="font-medium">{a.resident?.first_name} {a.resident?.last_name}</TableCell>
                     <TableCell className="text-sm capitalize">{a.assessment_type.replaceAll("_", " ")}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{formatDate(a.assessment_date)}</TableCell>
-                    <TableCell><StatusPill status={a.risk_level ?? "—"} tone={a.risk_level === "high" || a.risk_level === "critical" ? "destructive" : a.risk_level === "moderate" ? "warning" : "success"} /></TableCell>
+                    <TableCell><StatusPill status={a.risk_level ?? "-"} tone={a.risk_level === "high" || a.risk_level === "critical" ? "destructive" : a.risk_level === "moderate" ? "warning" : "success"} /></TableCell>
                     <TableCell><StatusPill status={a.status} tone={a.status === "approved" ? "success" : a.status === "rejected" ? "destructive" : "warning"} /></TableCell>
                     <TableCell><Button size="sm" variant="ghost" onClick={() => setViewing(a)}><Eye className="h-4 w-4" /></Button></TableCell>
                   </TableRow>
@@ -102,7 +102,7 @@ function AssessmentsPage() {
 
       <Dialog open={!!viewing} onOpenChange={(o) => !o && setViewing(null)}>
         <DialogContent className="max-w-3xl">
-          <DialogHeader><DialogTitle>{viewing?.assessment_type === "intake" ? "Intake assessment" : "Assessment"} — {viewing?.resident?.first_name} {viewing?.resident?.last_name}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{viewing?.assessment_type === "intake" ? "Intake assessment" : "Assessment"} - {viewing?.resident?.first_name} {viewing?.resident?.last_name}</DialogTitle></DialogHeader>
           {viewing && <ScrollArea className="max-h-[70vh] pr-4"><AssessmentSummary row={viewing} /></ScrollArea>}
         </DialogContent>
       </Dialog>
@@ -118,8 +118,8 @@ function AssessmentSummary({ row }: { row: AssessmentRow }) {
   if (row.assessment_type !== "intake" || !d || !d.demographics) {
     return (
       <div className="space-y-3">
-        <Section title="Findings">{row.findings || "—"}</Section>
-        <Section title="Recommendations">{row.recommendations || "—"}</Section>
+        <Section title="Findings">{row.findings || "-"}</Section>
+        <Section title="Recommendations">{row.recommendations || "-"}</Section>
       </div>
     );
   }
@@ -127,35 +127,35 @@ function AssessmentSummary({ row }: { row: AssessmentRow }) {
   return (
     <div className="space-y-3">
       <Section title="Demographics">
-        <div>AHCCCS #: {d.demographics.ahcccs_number || "—"} · Gender: {d.demographics.gender || "—"}</div>
-        <div>Ethnicity: {d.demographics.ethnicity || "—"} · Tribe: {d.demographics.native_american_tribe || "—"}</div>
-        <div>Education: {d.demographics.highest_education || "—"}</div>
+        <div>AHCCCS #: {d.demographics.ahcccs_number || "-"} · Gender: {d.demographics.gender || "-"}</div>
+        <div>Ethnicity: {d.demographics.ethnicity || "-"} · Tribe: {d.demographics.native_american_tribe || "-"}</div>
+        <div>Education: {d.demographics.highest_education || "-"}</div>
         {d.demographics.has_case_manager && <div>Case manager: {d.demographics.case_manager_name} ({d.demographics.case_manager_phone})</div>}
       </Section>
-      <Section title="Presenting problem">{d.presenting_problem || "—"}</Section>
-      <Section title="Family of origin">{d.family_of_origin.where_grew_up || "—"}</Section>
+      <Section title="Presenting problem">{d.presenting_problem || "-"}</Section>
+      <Section title="Family of origin">{d.family_of_origin.where_grew_up || "-"}</Section>
       <Section title="Behavioral health history">
-        <div>Diagnoses: {Object.entries(d.behavioral_health_history.diagnoses).filter(([k, v]) => k !== "other" && v).map(([k]) => k).join(", ") || "—"}{d.behavioral_health_history.diagnoses.other ? `, ${d.behavioral_health_history.diagnoses.other}` : ""}</div>
-        <div>Hospitalizations: {d.behavioral_health_history.psychiatric_hospitalizations || "—"}</div>
+        <div>Diagnoses: {Object.entries(d.behavioral_health_history.diagnoses).filter(([k, v]) => k !== "other" && v).map(([k]) => k).join(", ") || "-"}{d.behavioral_health_history.diagnoses.other ? `, ${d.behavioral_health_history.diagnoses.other}` : ""}</div>
+        <div>Hospitalizations: {d.behavioral_health_history.psychiatric_hospitalizations || "-"}</div>
       </Section>
       <Section title="Risk">
-        <div>Suicidal: {d.risk_assessment.suicidal_ideation_history || "—"}</div>
-        <div>Self-harm: {d.risk_assessment.self_harm_history || "—"}</div>
+        <div>Suicidal: {d.risk_assessment.suicidal_ideation_history || "-"}</div>
+        <div>Self-harm: {d.risk_assessment.self_harm_history || "-"}</div>
         <div>Safety plan: {d.risk_assessment.safety_plan_completed ? "Yes" : "No"}</div>
       </Section>
       <Section title="Substance use">
         {d.substance_use.filter((s) => s.age_first_used || s.last_used || s.quantity).map((s, i) => (
           <div key={i}>{s.drug}: first {s.age_first_used || "?"}, last {s.last_used || "?"}, qty {s.quantity || "?"}</div>
-        )) || "—"}
-        {d.substance_use.every((s) => !s.age_first_used && !s.last_used && !s.quantity) && "—"}
+        )) || "-"}
+        {d.substance_use.every((s) => !s.age_first_used && !s.last_used && !s.quantity) && "-"}
       </Section>
       <Section title={`Symptoms (${checked.length}/${SYMPTOMS.length})`}>{checked.join(", ") || "None checked"}</Section>
-      <Section title="Strengths">{d.strengths.filter(Boolean).join(" · ") || "—"}</Section>
-      <Section title="Goals">{d.goals.filter(Boolean).join(" · ") || "—"}</Section>
-      <Section title="ASAM">{d.asam_score || "—"}</Section>
+      <Section title="Strengths">{d.strengths.filter(Boolean).join(" · ") || "-"}</Section>
+      <Section title="Goals">{d.goals.filter(Boolean).join(" · ") || "-"}</Section>
+      <Section title="ASAM">{d.asam_score || "-"}</Section>
       <Section title="Signatures">
-        <div>Staff: {d.staff_name || "—"} ({d.staff_date || "—"})</div>
-        <div>BHP: {d.bhp_name || "—"} ({d.bhp_date || "—"})</div>
+        <div>Staff: {d.staff_name || "-"} ({d.staff_date || "-"})</div>
+        <div>BHP: {d.bhp_name || "-"} ({d.bhp_date || "-"})</div>
       </Section>
     </div>
   );

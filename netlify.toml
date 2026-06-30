@@ -7,7 +7,7 @@
   NPM_FLAGS = "--legacy-peer-deps"
   NITRO_PRESET = "netlify"
 
-# SPA fallback — ensures client-side routes (e.g. /dashboard, /residents/:id)
+# SPA fallback - ensures client-side routes (e.g. /dashboard, /residents/:id)
 # resolve to the app shell when a user refreshes or opens a deep link directly.
 # The Nitro Netlify Function handles SSR routes first; this is the final fallback.
 [[redirects]]

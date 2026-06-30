@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/schedule")({
-  head: () => ({ meta: [{ title: "Schedule & Handoff — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Schedule & Handoff - Lamar BHRF" }] }),
   component: SchedulePage,
 });
 
@@ -72,8 +72,8 @@ function SchedulePage() {
                   <TableRow key={s.id}>
                     <TableCell className="text-sm">{formatDate(s.shift_date)}</TableCell>
                     <TableCell className="text-sm">{s.start_time?.slice(0,5)} – {s.end_time?.slice(0,5)}</TableCell>
-                    <TableCell className="font-medium">{s.staff?.full_name ?? "—"} <span className="text-xs text-muted-foreground">{s.staff?.title}</span></TableCell>
-                    <TableCell className="text-sm">{s.shift_role ?? "—"}</TableCell>
+                    <TableCell className="font-medium">{s.staff?.full_name ?? "-"} <span className="text-xs text-muted-foreground">{s.staff?.title}</span></TableCell>
+                    <TableCell className="text-sm">{s.shift_role ?? "-"}</TableCell>
                     <TableCell>
                       <HandoffCell shift={s} canEdit={s.staff_id === user?.id || isAdmin} onSave={(v) => updateHandoff.mutate({ id: s.id, handoff_notes: v })} />
                     </TableCell>

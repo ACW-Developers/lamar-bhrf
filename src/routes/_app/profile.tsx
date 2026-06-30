@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/profile")({
-  head: () => ({ meta: [{ title: "Profile — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Profile - Lamar BHRF" }] }),
   component: ProfilePage,
 });
 

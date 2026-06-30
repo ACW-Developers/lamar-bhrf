@@ -1,14 +1,14 @@
 export function formatDate(d: string | Date | null | undefined) {
-  if (!d) return "—";
+  if (!d) return "-";
   const date = typeof d === "string" ? new Date(d) : d;
-  if (Number.isNaN(date.getTime())) return "—";
+  if (Number.isNaN(date.getTime())) return "-";
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
 export function formatDateTime(d: string | Date | null | undefined) {
-  if (!d) return "—";
+  if (!d) return "-";
   const date = typeof d === "string" ? new Date(d) : d;
-  if (Number.isNaN(date.getTime())) return "—";
+  if (Number.isNaN(date.getTime())) return "-";
   return date.toLocaleString("en-US", {
     month: "short",
     day: "numeric",
@@ -18,7 +18,7 @@ export function formatDateTime(d: string | Date | null | undefined) {
 }
 
 export function relativeTime(d: string | Date | null | undefined) {
-  if (!d) return "—";
+  if (!d) return "-";
   const date = typeof d === "string" ? new Date(d) : d;
   const diff = (Date.now() - date.getTime()) / 1000;
   if (diff < 60) return "just now";

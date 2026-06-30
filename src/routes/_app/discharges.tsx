@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/discharges")({
-  head: () => ({ meta: [{ title: "Discharge Planning — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Discharge Planning - Lamar BHRF" }] }),
   component: DischargesPage,
 });
 
@@ -85,13 +85,13 @@ function DischargesPage() {
                 {data.map((d: any) => (
                   <TableRow key={d.id}>
                     <TableCell className="font-medium">{d.resident?.first_name} {d.resident?.last_name} <span className="ml-1 text-xs text-muted-foreground">{d.resident?.mrn}</span></TableCell>
-                    <TableCell>{d.planned_date ? formatDate(d.planned_date) : "—"}</TableCell>
-                    <TableCell>{d.actual_date ? formatDate(d.actual_date) : "—"}</TableCell>
-                    <TableCell className="text-sm">{d.discharge_type ?? "—"}</TableCell>
-                    <TableCell className="text-sm">{d.destination ?? "—"}</TableCell>
+                    <TableCell>{d.planned_date ? formatDate(d.planned_date) : "-"}</TableCell>
+                    <TableCell>{d.actual_date ? formatDate(d.actual_date) : "-"}</TableCell>
+                    <TableCell className="text-sm">{d.discharge_type ?? "-"}</TableCell>
+                    <TableCell className="text-sm">{d.destination ?? "-"}</TableCell>
                     <TableCell><StatusPill status={d.status} /></TableCell>
                     <TableCell className="text-sm">
-                      {d.follow_up_date ? formatDate(d.follow_up_date) : "—"}
+                      {d.follow_up_date ? formatDate(d.follow_up_date) : "-"}
                       {d.follow_up_completed && <CheckCircle2 className="ml-1 inline h-3.5 w-3.5 text-success" />}
                     </TableCell>
                     <TableCell>

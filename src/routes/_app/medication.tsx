@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/medication")({
-  head: () => ({ meta: [{ title: "Medication — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Medication - Lamar BHRF" }] }),
   component: MedicationPage,
 });
 
@@ -74,7 +74,7 @@ function MedicationPage() {
                     <TableRow key={m.id}>
                       <TableCell className="font-medium">{r?.first_name} {r?.last_name}</TableCell>
                       <TableCell>{m.medication_name}</TableCell>
-                      <TableCell className="text-sm text-muted-foreground">{m.dosage ?? "—"}</TableCell>
+                      <TableCell className="text-sm text-muted-foreground">{m.dosage ?? "-"}</TableCell>
                       <TableCell className="text-sm">{formatDateTime(m.scheduled_time)}</TableCell>
                       <TableCell className="text-sm">{formatDateTime(m.administered_at)}</TableCell>
                       <TableCell><StatusPill status={m.status} tone={m.status === "administered" ? "success" : m.status === "refused" || m.status === "missed" ? "destructive" : "warning"} /></TableCell>

@@ -37,7 +37,7 @@ import { useAuth, ROLE_SHORT } from "@/lib/auth";
 import { relativeTime, formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/_app/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Dashboard - Lamar BHRF" }] }),
   component: DashboardPage,
 });
 
@@ -186,22 +186,22 @@ function DashboardPage() {
       <div className="space-y-6 p-4 sm:p-6">
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
           <Link to="/residents" className="block transition-transform hover:-translate-y-0.5">
-            <KpiCard label="Active Residents" value={isLoading ? "—" : activeResidents} icon={Users} tone="primary" hint="In care today" />
+            <KpiCard label="Active Residents" value={isLoading ? "-" : activeResidents} icon={Users} tone="primary" hint="In care today" />
           </Link>
           <Link to="/admissions" className="block transition-transform hover:-translate-y-0.5">
-            <KpiCard label="New Admissions" value={isLoading ? "—" : newAdmissions} icon={UserPlus} hint="This month" />
+            <KpiCard label="New Admissions" value={isLoading ? "-" : newAdmissions} icon={UserPlus} hint="This month" />
           </Link>
           <Link to="/discharges" className="block transition-transform hover:-translate-y-0.5">
-            <KpiCard label="Discharges" value={isLoading ? "—" : discharges} icon={UserMinus} hint="This month" />
+            <KpiCard label="Discharges" value={isLoading ? "-" : discharges} icon={UserMinus} hint="This month" />
           </Link>
           <Link to="/incidents" className="block transition-transform hover:-translate-y-0.5">
-            <KpiCard label="Open Incidents" value={isLoading ? "—" : openIncidents} icon={AlertTriangle} tone={openIncidents > 0 ? "destructive" : "default"} hint="Needs attention" />
+            <KpiCard label="Open Incidents" value={isLoading ? "-" : openIncidents} icon={AlertTriangle} tone={openIncidents > 0 ? "destructive" : "default"} hint="Needs attention" />
           </Link>
           <Link to="/treatment-plans" className="block transition-transform hover:-translate-y-0.5">
-            <KpiCard label="Plans Due" value={isLoading ? "—" : plansDue} icon={ClipboardList} tone="warning" hint="Within 7 days" />
+            <KpiCard label="Plans Due" value={isLoading ? "-" : plansDue} icon={ClipboardList} tone="warning" hint="Within 7 days" />
           </Link>
           <Link to="/schedule" className="block transition-transform hover:-translate-y-0.5">
-            <KpiCard label="Staff On Duty" value={isLoading ? "—" : onDuty} icon={ShieldCheck} hint={`of ${staff.length} total`} />
+            <KpiCard label="Staff On Duty" value={isLoading ? "-" : onDuty} icon={ShieldCheck} hint={`of ${staff.length} total`} />
           </Link>
         </div>
 
@@ -355,7 +355,7 @@ function DashboardPage() {
                   <div className="min-w-0 flex-1">
                     <div className="text-sm">
                       <span className="font-medium capitalize">{n.note_type.replaceAll("_", " ")}</span>{" "}
-                      <span className="text-muted-foreground">— {n.content.slice(0, 60)}{n.content.length > 60 ? "…" : ""}</span>
+                      <span className="text-muted-foreground">- {n.content.slice(0, 60)}{n.content.length > 60 ? "…" : ""}</span>
                     </div>
                     <div className="text-xs text-muted-foreground">{relativeTime(n.created_at)}</div>
                   </div>
@@ -373,7 +373,7 @@ function DashboardPage() {
               {plansDue === 0 && openIncidents === 0 && (
                 <li className="flex items-start gap-3 text-muted-foreground">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 text-success" />
-                  <span>All clear — no pending items.</span>
+                  <span>All clear - no pending items.</span>
                 </li>
               )}
               {plansDue > 0 && (

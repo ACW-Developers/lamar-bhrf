@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/documents")({
-  head: () => ({ meta: [{ title: "Documents — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Documents - Lamar BHRF" }] }),
   component: DocumentsPage,
 });
 
@@ -78,9 +78,9 @@ function DocumentsPage() {
                   <TableRow key={d.id}>
                     <TableCell className="font-medium">{d.name}</TableCell>
                     <TableCell>{d.resident?.first_name} {d.resident?.last_name}</TableCell>
-                    <TableCell className="text-sm">{d.category ?? "—"}</TableCell>
+                    <TableCell className="text-sm">{d.category ?? "-"}</TableCell>
                     <TableCell className="text-sm">{formatDateTime(d.created_at)}</TableCell>
-                    <TableCell className="text-sm">{d.uploader?.full_name ?? "—"}</TableCell>
+                    <TableCell className="text-sm">{d.uploader?.full_name ?? "-"}</TableCell>
                     <TableCell className="space-x-1">
                       <Button size="sm" variant="ghost" onClick={() => download(d.storage_path, d.name)}><Download className="h-3.5 w-3.5" /></Button>
                       {isAdmin && <Button size="sm" variant="ghost" onClick={() => remove.mutate(d)}><Trash2 className="h-3.5 w-3.5 text-destructive" /></Button>}

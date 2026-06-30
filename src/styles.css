@@ -63,7 +63,7 @@
 :root {
   --radius: 0.75rem;
 
-  /* Lamar BHRF — Emerald Premium (light) */
+  /* Lamar BHRF - Emerald Premium (light) */
   --background: oklch(0.99 0.005 150);
   --foreground: oklch(0.18 0.025 165);
 

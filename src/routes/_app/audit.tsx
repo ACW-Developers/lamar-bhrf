@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDateTime } from "@/lib/format";
 
 export const Route = createFileRoute("/_app/audit")({
-  head: () => ({ meta: [{ title: "Audit Log — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Audit Log - Lamar BHRF" }] }),
   component: AuditPage,
 });
 
@@ -53,7 +53,7 @@ function AuditPage() {
                 {filtered.map((r: any) => (
                   <TableRow key={r.id}>
                     <TableCell className="whitespace-nowrap text-sm">{formatDateTime(r.created_at)}</TableCell>
-                    <TableCell className="text-sm">{r.actor_email ?? "—"}</TableCell>
+                    <TableCell className="text-sm">{r.actor_email ?? "-"}</TableCell>
                     <TableCell><Badge variant={ACTION_VARIANT[r.action] ?? "secondary"}>{r.action}</Badge></TableCell>
                     <TableCell className="font-mono text-xs">{r.table_name}</TableCell>
                     <TableCell className="font-mono text-xs text-muted-foreground">{r.record_id?.slice(0, 8)}…</TableCell>

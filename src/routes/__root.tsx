@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lamar BHRF — Behavioral Health Residential Facility" },
+      { title: "Lamar BHRF - Behavioral Health Residential Facility" },
       { name: "description", content: "Operational management platform for Lamar Residential Behavioral Health Residential Facility in Arizona." },
       { name: "author", content: "Lamar BHRF" },
       { property: "og:title", content: "Lamar BHRF" },

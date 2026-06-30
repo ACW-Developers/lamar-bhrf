@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/therapy")({
-  head: () => ({ meta: [{ title: "Therapy — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Therapy - Lamar BHRF" }] }),
   component: TherapyPage,
 });
 
@@ -74,9 +74,9 @@ function TherapyPage() {
                     <TableRow key={s.id}>
                       <TableCell className="text-sm text-muted-foreground">{formatDate(s.session_date)}</TableCell>
                       <TableCell className="font-medium">{r?.first_name} {r?.last_name}</TableCell>
-                      <TableCell className="text-sm">{t?.full_name ?? "—"}</TableCell>
-                      <TableCell className="text-sm">{s.duration_minutes ? `${s.duration_minutes} min` : "—"}</TableCell>
-                      <TableCell className="max-w-sm text-sm text-muted-foreground line-clamp-1">{s.objectives_addressed ?? "—"}</TableCell>
+                      <TableCell className="text-sm">{t?.full_name ?? "-"}</TableCell>
+                      <TableCell className="text-sm">{s.duration_minutes ? `${s.duration_minutes} min` : "-"}</TableCell>
+                      <TableCell className="max-w-sm text-sm text-muted-foreground line-clamp-1">{s.objectives_addressed ?? "-"}</TableCell>
                     </TableRow>
                   );
                 })}

@@ -16,7 +16,7 @@ import { useAuth } from "@/lib/auth";
 import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/_app/progress-notes")({
-  head: () => ({ meta: [{ title: "Progress Notes — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Progress Notes - Lamar BHRF" }] }),
   component: ProgressNotesPage,
 });
 

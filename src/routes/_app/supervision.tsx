@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/supervision")({
-  head: () => ({ meta: [{ title: "Supervision — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Supervision - Lamar BHRF" }] }),
   component: SupervisionPage,
 });
 

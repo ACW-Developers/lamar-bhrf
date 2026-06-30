@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { AdmissionIntakeFormFields, emptyAdmissionIntake, type AdmissionIntakeForm } from "@/components/admission-intake-form";
 
 export const Route = createFileRoute("/_app/admissions")({
-  head: () => ({ meta: [{ title: "Admissions — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Admissions - Lamar BHRF" }] }),
   component: AdmissionsPage,
 });
 
@@ -88,7 +88,7 @@ function AdmissionsPage() {
                     <TableCell className="font-medium">{a.resident?.first_name} {a.resident?.last_name}</TableCell>
                     <TableCell className="font-mono text-xs">{a.resident?.mrn}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{formatDate(a.intake_date)}</TableCell>
-                    <TableCell className="text-sm">{a.referral_source ?? "—"}</TableCell>
+                    <TableCell className="text-sm">{a.referral_source ?? "-"}</TableCell>
                     <TableCell><StatusPill status={a.status} tone={a.status === "approved" || a.status === "completed" ? "success" : a.status === "rejected" ? "destructive" : "warning"} /></TableCell>
                     <TableCell><Button size="sm" variant="ghost" onClick={() => setViewing(a)}><Eye className="h-4 w-4" /></Button></TableCell>
                   </TableRow>
@@ -101,7 +101,7 @@ function AdmissionsPage() {
 
       <Dialog open={!!viewing} onOpenChange={(o) => !o && setViewing(null)}>
         <DialogContent className="max-w-3xl">
-          <DialogHeader><DialogTitle>Admission — {viewing?.resident?.first_name} {viewing?.resident?.last_name}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>Admission - {viewing?.resident?.first_name} {viewing?.resident?.last_name}</DialogTitle></DialogHeader>
           {viewing && <ScrollArea className="max-h-[70vh] pr-4"><AdmissionSummary row={viewing} /></ScrollArea>}
         </DialogContent>
       </Dialog>
@@ -121,30 +121,30 @@ function AdmissionSummary({ row }: { row: AdmissionRow }) {
   return (
     <div className="space-y-3">
       <Section title="1. General consent for services" ok={f.general_consent?.acknowledged}>
-        <div>Signed by: {f.general_consent?.resident_signature || "—"} on {f.general_consent?.resident_signed_date || "—"}</div>
-        <div>BHT: {f.general_consent?.bht_name || "—"}</div>
+        <div>Signed by: {f.general_consent?.resident_signature || "-"} on {f.general_consent?.resident_signed_date || "-"}</div>
+        <div>BHT: {f.general_consent?.bht_name || "-"}</div>
       </Section>
       <Section title="2. Resident rights acknowledgment" ok={f.rights_acknowledgment?.acknowledged}>
-        <div>Witness: {f.rights_acknowledgment?.witness_signature || "—"}</div>
+        <div>Witness: {f.rights_acknowledgment?.witness_signature || "-"}</div>
       </Section>
       <Section title="3. Release of information">
-        <div>Disclose to: {f.release_of_information?.disclose_to || "—"}</div>
+        <div>Disclose to: {f.release_of_information?.disclose_to || "-"}</div>
         <div>Duration: {f.release_of_information?.duration}</div>
       </Section>
       <Section title="4. Psychotropic medication consent">
-        <div>Medication: {f.medication_consent?.medication_name || "—"}</div>
-        <div>Clinician: {f.medication_consent?.prescribing_clinician || "—"}</div>
+        <div>Medication: {f.medication_consent?.medication_name || "-"}</div>
+        <div>Clinician: {f.medication_consent?.prescribing_clinician || "-"}</div>
       </Section>
       <Section title="5. Treatment consent" ok={f.treatment_consent?.acknowledged} />
       <Section title="6. Policies & procedures" ok={f.policies_acknowledgment?.acknowledged} />
       <Section title="7. Emergency contacts">
-        <div>Primary: {f.emergency_contacts?.primary_name || "—"} ({f.emergency_contacts?.primary_relationship}) — {f.emergency_contacts?.primary_phone}</div>
-        <div>PCP: {f.emergency_contacts?.pcp_name || "—"} @ {f.emergency_contacts?.pcp_clinic}</div>
-        <div>Insurance: {f.emergency_contacts?.insurance_company || "—"} #{f.emergency_contacts?.insurance_policy}</div>
-        <div>Allergies: {f.emergency_contacts?.allergies || "—"}</div>
+        <div>Primary: {f.emergency_contacts?.primary_name || "-"} ({f.emergency_contacts?.primary_relationship}) - {f.emergency_contacts?.primary_phone}</div>
+        <div>PCP: {f.emergency_contacts?.pcp_name || "-"} @ {f.emergency_contacts?.pcp_clinic}</div>
+        <div>Insurance: {f.emergency_contacts?.insurance_company || "-"} #{f.emergency_contacts?.insurance_policy}</div>
+        <div>Allergies: {f.emergency_contacts?.allergies || "-"}</div>
       </Section>
       <Section title="8. Power of attorney / guardianship">
-        <div>{f.power_of_attorney?.has_poa ? `${f.power_of_attorney?.poa_type} — ${f.power_of_attorney?.agent_name || "agent TBD"}` : "None on file"}</div>
+        <div>{f.power_of_attorney?.has_poa ? `${f.power_of_attorney?.poa_type} - ${f.power_of_attorney?.agent_name || "agent TBD"}` : "None on file"}</div>
       </Section>
       <Section title="9. House rules acknowledgment" ok={f.house_rules?.acknowledged} />
     </div>
@@ -190,7 +190,7 @@ function NewAdmissionDialog({ onCreated }: { onCreated: () => void }) {
                 <SelectTrigger><SelectValue placeholder="Select resident" /></SelectTrigger>
                 <SelectContent>
                   {(residents ?? []).map((r) => (
-                    <SelectItem key={r.id} value={r.id}>{r.first_name} {r.last_name} — {r.mrn}</SelectItem>
+                    <SelectItem key={r.id} value={r.id}>{r.first_name} {r.last_name} - {r.mrn}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

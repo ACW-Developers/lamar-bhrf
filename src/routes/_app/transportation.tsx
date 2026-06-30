@@ -16,7 +16,7 @@ import { formatDateTime } from "@/lib/format";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/transportation")({
-  head: () => ({ meta: [{ title: "Transportation — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Transportation - Lamar BHRF" }] }),
   component: TransportationPage,
 });
 
@@ -72,8 +72,8 @@ function TransportationPage() {
                     <TableRow key={t.id}>
                       <TableCell className="text-sm">{formatDateTime(t.departure_time)}</TableCell>
                       <TableCell className="font-medium">{r?.first_name} {r?.last_name}</TableCell>
-                      <TableCell className="text-sm">{t.appointment_type ?? "—"} · {t.destination ?? "—"}</TableCell>
-                      <TableCell className="text-sm">{t.vehicle ?? "—"}</TableCell>
+                      <TableCell className="text-sm">{t.appointment_type ?? "-"} · {t.destination ?? "-"}</TableCell>
+                      <TableCell className="text-sm">{t.vehicle ?? "-"}</TableCell>
                       <TableCell className="text-sm">{d?.full_name ?? "Unassigned"}</TableCell>
                       <TableCell className="text-sm">{formatDateTime(t.return_time)}</TableCell>
                     </TableRow>

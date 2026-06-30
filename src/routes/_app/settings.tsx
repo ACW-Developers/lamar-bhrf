@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { DataEmpty } from "@/components/data-empty";
 
 export const Route = createFileRoute("/_app/settings")({
-  head: () => ({ meta: [{ title: "Settings — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Settings - Lamar BHRF" }] }),
   component: SettingsPage,
 });
 
@@ -153,10 +153,10 @@ function SettingsPage() {
                     <TableRow key={s.id}>
                       <TableCell className="font-medium">{s.full_name}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">{s.email}</TableCell>
-                      <TableCell className="text-sm">{s.title ?? "—"}</TableCell>
+                      <TableCell className="text-sm">{s.title ?? "-"}</TableCell>
                       <TableCell>
                         <div className="flex flex-wrap gap-1">
-                          {s.roles.length === 0 && <span className="text-xs text-muted-foreground">—</span>}
+                          {s.roles.length === 0 && <span className="text-xs text-muted-foreground">-</span>}
                           {s.roles.map((r) => <RoleBadge key={r} role={r} />)}
                         </div>
                       </TableCell>

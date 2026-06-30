@@ -187,7 +187,7 @@ export function AdmissionIntakeFormFields({ value, onChange }: Props) {
       </TabsContent>
 
       <TabsContent value="rights" className="mt-4 space-y-4">
-        <p className="text-sm text-muted-foreground">Resident Rights Acknowledgment — dignity, privacy, participation in care, freedom from abuse, access to records, grievance.</p>
+        <p className="text-sm text-muted-foreground">Resident Rights Acknowledgment - dignity, privacy, participation in care, freedom from abuse, access to records, grievance.</p>
         <Check label="Resident received, read, and understands the Statement of Resident Rights" checked={value.rights_acknowledgment.acknowledged} onCheckedChange={(v) => set("rights_acknowledgment", { acknowledged: v })} />
         <div className="grid gap-3 sm:grid-cols-3">
           <Field label="Resident signature"><Input value={value.rights_acknowledgment.resident_signature} onChange={(e) => set("rights_acknowledgment", { resident_signature: e.target.value })} /></Field>
@@ -320,7 +320,7 @@ export function AdmissionIntakeFormFields({ value, onChange }: Props) {
           <div className="grid gap-3 sm:grid-cols-2">
             <Field label="Type">
               <select className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm" value={value.power_of_attorney.poa_type} onChange={(e) => set("power_of_attorney", { poa_type: e.target.value as AdmissionIntakeForm["power_of_attorney"]["poa_type"] })}>
-                <option value="none">—</option>
+                <option value="none">-</option>
                 <option value="healthcare_poa">Healthcare POA</option>
                 <option value="general_durable_poa">General durable POA</option>
                 <option value="court_guardianship_person">Court guardianship of person</option>

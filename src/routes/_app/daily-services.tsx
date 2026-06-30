@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/daily-services")({
-  head: () => ({ meta: [{ title: "Daily Services — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Daily Services - Lamar BHRF" }] }),
   component: DailyServicesPage,
 });
 
@@ -66,7 +66,7 @@ function DailyServicesPage() {
     <div>
       <PageHeader
         eyebrow="Daily Operations"
-        title="Daily Treatment Services — Attendance"
+        title="Daily Treatment Services - Attendance"
         description="Group therapy, outdoor, gym, AA/NA and ADL attendance with staff initials and resident sign-off."
         actions={
           <Dialog open={open} onOpenChange={setOpen}>
@@ -99,7 +99,7 @@ function DailyServicesPage() {
                 {(data ?? []).map((o) => {
                   const r = o.resident as { first_name?: string; last_name?: string; date_of_birth?: string } | null;
                   const a = (o.attendance ?? null) as Attendance | null;
-                  const yn = (b?: boolean) => b ? <CheckCircle2 className="h-4 w-4 text-success" /> : <span className="text-muted-foreground text-xs">—</span>;
+                  const yn = (b?: boolean) => b ? <CheckCircle2 className="h-4 w-4 text-success" /> : <span className="text-muted-foreground text-xs">-</span>;
                   return (
                     <TableRow key={o.id}>
                       <TableCell className="text-sm text-muted-foreground">{formatDate(o.observation_date)}</TableCell>
@@ -108,13 +108,13 @@ function DailyServicesPage() {
                         {r?.date_of_birth && <div className="text-xs text-muted-foreground">DOB {formatDate(r.date_of_birth)}</div>}
                       </TableCell>
                       <TableCell className="text-xs">
-                        {a?.group_therapy ? `${a.group_therapy.g1 ? "1" : "·"} / ${a.group_therapy.g2 ? "2" : "·"} / ${a.group_therapy.g3 ? "3" : "·"}` : "—"}
+                        {a?.group_therapy ? `${a.group_therapy.g1 ? "1" : "·"} / ${a.group_therapy.g2 ? "2" : "·"} / ${a.group_therapy.g3 ? "3" : "·"}` : "-"}
                       </TableCell>
                       <TableCell>{yn(a?.walk?.attended)}</TableCell>
                       <TableCell>{yn(a?.gym?.attended)}</TableCell>
                       <TableCell>{yn(a?.aana?.attended)}</TableCell>
                       <TableCell>{yn(a?.adl?.attended)}</TableCell>
-                      <TableCell className="text-xs">{a?.resident_signature || "—"}</TableCell>
+                      <TableCell className="text-xs">{a?.resident_signature || "-"}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -175,7 +175,7 @@ function NewObservationDialog({ onCreated }: { onCreated: () => void }) {
 
   return (
     <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
-      <DialogHeader><DialogTitle>Daily Treatment Services — Attendance</DialogTitle></DialogHeader>
+      <DialogHeader><DialogTitle>Daily Treatment Services - Attendance</DialogTitle></DialogHeader>
       <div className="space-y-4">
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="space-y-1.5 sm:col-span-2">

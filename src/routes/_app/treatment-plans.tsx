@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/treatment-plans")({
-  head: () => ({ meta: [{ title: "Treatment Plans — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Treatment Plans - Lamar BHRF" }] }),
   component: TreatmentPlansPage,
 });
 
@@ -114,7 +114,7 @@ function TreatmentPlansPage() {
                   return (
                     <TableRow key={p.id}>
                       <TableCell className="font-medium">{r?.first_name} {r?.last_name}</TableCell>
-                      <TableCell className="max-w-sm text-sm text-muted-foreground line-clamp-1">{p.problem_summary ?? "—"}</TableCell>
+                      <TableCell className="max-w-sm text-sm text-muted-foreground line-clamp-1">{p.problem_summary ?? "-"}</TableCell>
                       <TableCell className="text-sm">{formatDate(p.plan_date)}</TableCell>
                       <TableCell className="text-sm">{formatDate(p.review_date)}</TableCell>
                       <TableCell><StatusPill status={p.status} tone={p.status === "approved" ? "success" : p.status === "rejected" ? "destructive" : "warning"} /></TableCell>
@@ -285,8 +285,8 @@ function NewPlanDialog({ onCreated }: { onCreated: () => void }) {
             <Select value={t.guiding_framework ?? ""} onValueChange={(v) => setT({ ...t, guiding_framework: v })}>
               <SelectTrigger><SelectValue placeholder="Select framework" /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="adult-9">Nine Guiding Principles — Adult Behavioral Health</SelectItem>
-                <SelectItem value="child-12">Arizona Vision 12 Principles — Children's Behavioral Health</SelectItem>
+                <SelectItem value="adult-9">Nine Guiding Principles - Adult Behavioral Health</SelectItem>
+                <SelectItem value="child-12">Arizona Vision 12 Principles - Children's Behavioral Health</SelectItem>
               </SelectContent>
             </Select>
           </Field>
@@ -435,7 +435,7 @@ function ViewPlanDialog({ plan, onClose }: { plan: PlanRow | null; onClose: () =
     <Dialog open={!!plan} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
-          <DialogTitle>{plan.resident?.first_name} {plan.resident?.last_name} — Treatment Plan</DialogTitle>
+          <DialogTitle>{plan.resident?.first_name} {plan.resident?.last_name} - Treatment Plan</DialogTitle>
           <p className="text-xs text-muted-foreground">Plan {formatDate(plan.plan_date)} · Review {formatDate(plan.review_date)}</p>
         </DialogHeader>
         <div className="space-y-4 text-sm">

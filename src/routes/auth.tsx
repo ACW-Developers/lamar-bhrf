@@ -12,7 +12,7 @@ import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Sign in — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Sign in - Lamar BHRF" }] }),
   component: AuthPage,
 });
 
@@ -75,7 +75,7 @@ function AuthPage() {
         {/* hero copy bottom-left */}
         <div className="absolute inset-x-0 bottom-0 p-10 text-white">
           <h2 className="max-w-xl text-4xl font-semibold leading-tight tracking-tight">
-            Compassionate, structured care — every shift, every resident.
+            Compassionate, structured care - every shift, every resident.
           </h2>
           <p className="mt-3 max-w-lg text-sm text-white/85">
             Lamar BHRF brings clinical documentation, daily operations, and oversight

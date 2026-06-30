@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/incidents")({
-  head: () => ({ meta: [{ title: "Incidents — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Incidents - Lamar BHRF" }] }),
   component: IncidentsPage,
 });
 
@@ -72,7 +72,7 @@ function IncidentsPage() {
                   return (
                     <TableRow key={i.id}>
                       <TableCell className="text-sm text-muted-foreground">{formatDate(i.incident_date)}</TableCell>
-                      <TableCell className="font-medium">{r ? `${r.first_name} ${r.last_name}` : "—"}</TableCell>
+                      <TableCell className="font-medium">{r ? `${r.first_name} ${r.last_name}` : "-"}</TableCell>
                       <TableCell className="text-sm capitalize">{i.incident_type}</TableCell>
                       <TableCell><StatusPill status={i.severity} tone={i.severity === "critical" || i.severity === "high" ? "destructive" : i.severity === "medium" ? "warning" : "default"} /></TableCell>
                       <TableCell><StatusPill status={i.status} tone={i.status === "resolved" || i.status === "closed" ? "success" : i.status === "investigating" ? "warning" : "destructive"} /></TableCell>

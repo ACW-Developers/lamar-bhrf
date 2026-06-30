@@ -121,8 +121,8 @@ export type IntakeAssessmentData = {
 };
 
 const DRUGS = [
-  "Alcohol — Liquor (vodka, whiskey, etc.)",
-  "Alcohol — Beer",
+  "Alcohol - Liquor (vodka, whiskey, etc.)",
+  "Alcohol - Beer",
   "Methamphetamines",
   "Cannabis / Marijuana Flower",
   "Cannabis / Marijuana Vape",
@@ -131,7 +131,7 @@ const DRUGS = [
   "Cigarettes",
   "Tobacco Vape",
   "Heroin",
-  "Opioids — pain pills",
+  "Opioids - pain pills",
 ];
 
 export const SYMPTOMS = [
@@ -211,7 +211,7 @@ export function IntakeAssessmentFormFields({ value, onChange }: { value: IntakeA
           <F label="AHCCCS #"><Input value={value.demographics.ahcccs_number} onChange={(e) => set("demographics", { ahcccs_number: e.target.value })} /></F>
           <F label="Gender">
             <select className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm" value={value.demographics.gender} onChange={(e) => set("demographics", { gender: e.target.value as IntakeAssessmentData["demographics"]["gender"] })}>
-              <option value="">—</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option>
+              <option value="">-</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option>
             </select>
           </F>
           <F label="Ethnicity"><Input value={value.demographics.ethnicity} onChange={(e) => set("demographics", { ethnicity: e.target.value })} /></F>
@@ -219,7 +219,7 @@ export function IntakeAssessmentFormFields({ value, onChange }: { value: IntakeA
           <F label="Highest level of education"><Input value={value.demographics.highest_education} onChange={(e) => set("demographics", { highest_education: e.target.value })} /></F>
           <F label="Treatment on reservation?">
             <select className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm" value={value.demographics.treatment_on_reservation} onChange={(e) => set("demographics", { treatment_on_reservation: e.target.value as IntakeAssessmentData["demographics"]["treatment_on_reservation"] })}>
-              <option value="">—</option><option value="yes">Yes</option><option value="no">No</option>
+              <option value="">-</option><option value="yes">Yes</option><option value="no">No</option>
             </select>
           </F>
         </div>
@@ -264,13 +264,13 @@ export function IntakeAssessmentFormFields({ value, onChange }: { value: IntakeA
           <F label="Cultural values"><Textarea rows={2} value={value.cultural_spiritual.cultural_values} onChange={(e) => set("cultural_spiritual", { cultural_values: e.target.value })} /></F>
           <F label="Believes in God / higher power">
             <select className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm" value={value.cultural_spiritual.believes_higher_power} onChange={(e) => set("cultural_spiritual", { believes_higher_power: e.target.value as "yes" | "no" | "" })}>
-              <option value="">—</option><option value="yes">Yes</option><option value="no">No</option>
+              <option value="">-</option><option value="yes">Yes</option><option value="no">No</option>
             </select>
           </F>
           <F label="Religious identity"><Input value={value.cultural_spiritual.religious_identity} onChange={(e) => set("cultural_spiritual", { religious_identity: e.target.value })} /></F>
           <F label="Spiritual">
             <select className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm" value={value.cultural_spiritual.spiritual} onChange={(e) => set("cultural_spiritual", { spiritual: e.target.value as "yes" | "no" | "" })}>
-              <option value="">—</option><option value="yes">Yes</option><option value="no">No</option>
+              <option value="">-</option><option value="yes">Yes</option><option value="no">No</option>
             </select>
           </F>
         </div>
@@ -322,7 +322,7 @@ export function IntakeAssessmentFormFields({ value, onChange }: { value: IntakeA
       </TabsContent>
 
       <TabsContent value="sud" className="mt-4 space-y-3">
-        <p className="text-sm text-muted-foreground">Substance use history — fill what applies. Leave blank for substances never used.</p>
+        <p className="text-sm text-muted-foreground">Substance use history - fill what applies. Leave blank for substances never used.</p>
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-xs">
             <thead className="bg-muted/40 text-left">

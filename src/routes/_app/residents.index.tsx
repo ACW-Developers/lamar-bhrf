@@ -39,7 +39,7 @@ import { toast } from "sonner";
 import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/_app/residents/")({
-  head: () => ({ meta: [{ title: "Residents — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Residents - Lamar BHRF" }] }),
   component: ResidentsPage,
 });
 
@@ -180,7 +180,7 @@ function ResidentsPage() {
                         <div>
                           <div className="font-medium leading-tight">{r.first_name} {r.last_name}</div>
                           <div className="text-xs text-muted-foreground">
-                            {r.gender ?? "—"} · DOB {formatDate(r.date_of_birth)}
+                            {r.gender ?? "-"} · DOB {formatDate(r.date_of_birth)}
                           </div>
                         </div>
                       </div>
@@ -190,7 +190,7 @@ function ResidentsPage() {
                       <StatusPill status={r.status} tone={statusTone(r.status)} />
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">{formatDate(r.admission_date)}</TableCell>
-                    <TableCell className="text-sm">{r.primary_diagnosis ?? "—"}</TableCell>
+                    <TableCell className="text-sm">{r.primary_diagnosis ?? "-"}</TableCell>
                     <TableCell className="text-right">
                       <Button variant="ghost" size="sm" asChild>
                         <Link to="/residents/$id" params={{ id: r.id }}>
@@ -288,7 +288,7 @@ function NewResidentDialog({ onCreated }: { onCreated: () => void }) {
           <Input
             value={form.primary_diagnosis}
             onChange={(e) => setForm({ ...form, primary_diagnosis: e.target.value })}
-            placeholder="e.g. Substance use disorder — opioid"
+            placeholder="e.g. Substance use disorder - opioid"
           />
         </div>
       </div>

@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_app/contacts")({
-  head: () => ({ meta: [{ title: "Contacts & Visitation — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Contacts & Visitation - Lamar BHRF" }] }),
   component: ContactsPage,
 });
 
@@ -87,9 +87,9 @@ function ContactsPage() {
                       <TableRow key={c.id}>
                         <TableCell>{c.resident?.first_name} {c.resident?.last_name}</TableCell>
                         <TableCell className="font-medium">{c.name}</TableCell>
-                        <TableCell className="text-sm">{c.relationship ?? "—"}</TableCell>
-                        <TableCell className="text-sm">{c.phone ?? "—"}</TableCell>
-                        <TableCell className="text-sm">{c.email ?? "—"}</TableCell>
+                        <TableCell className="text-sm">{c.relationship ?? "-"}</TableCell>
+                        <TableCell className="text-sm">{c.phone ?? "-"}</TableCell>
+                        <TableCell className="text-sm">{c.email ?? "-"}</TableCell>
                         <TableCell className="space-x-1">
                           {c.is_emergency && <Badge variant="destructive">Emergency</Badge>}
                           {c.can_visit && <Badge variant="secondary">Visit OK</Badge>}
@@ -109,7 +109,7 @@ function ContactsPage() {
                   <TableBody>
                     {visits.map((v: any) => (
                       <TableRow key={v.id}>
-                        <TableCell className="font-medium">{v.visitor_name} <span className="text-xs text-muted-foreground">({v.relationship ?? "—"})</span></TableCell>
+                        <TableCell className="font-medium">{v.visitor_name} <span className="text-xs text-muted-foreground">({v.relationship ?? "-"})</span></TableCell>
                         <TableCell>{v.resident?.first_name} {v.resident?.last_name}</TableCell>
                         <TableCell className="text-sm">{formatDateTime(v.check_in)}</TableCell>
                         <TableCell className="text-sm">{v.check_out ? formatDateTime(v.check_out) : <Badge variant="secondary">On site</Badge>}</TableCell>

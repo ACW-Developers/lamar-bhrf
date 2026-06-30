@@ -120,7 +120,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b">
-        <Link to="/dashboard" className="flex h-14 items-center justify-center px-3">
+        <Link to="/dashboard" className="flex h-10 items-center justify-center px-3">
           <img
             src={logoImage}
             alt="Lamar BHRF"

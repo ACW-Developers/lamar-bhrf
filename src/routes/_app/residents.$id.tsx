@@ -21,7 +21,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/residents/$id")({
-  head: () => ({ meta: [{ title: "Resident — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Resident - Lamar BHRF" }] }),
   component: ResidentDetailPage,
 });
 
@@ -241,7 +241,7 @@ function ResidentDetailPage() {
                   <div>
                     <div className="font-medium capitalize">{inc.incident_type}</div>
                     <div className="text-xs text-muted-foreground line-clamp-1">
-                      Severity: {inc.severity ?? "—"} · {relativeTime(inc.incident_date)} · {inc.description.slice(0, 80)}
+                      Severity: {inc.severity ?? "-"} · {relativeTime(inc.incident_date)} · {inc.description.slice(0, 80)}
                     </div>
                   </div>
                   <StatusPill status={inc.status} tone={inc.status === "resolved" ? "success" : "destructive"} />
@@ -270,13 +270,13 @@ function Field({ label, value }: { label: string; value: string | null | undefin
   return (
     <div>
       <dt className="text-xs text-muted-foreground">{label}</dt>
-      <dd className="mt-0.5 text-sm">{value ?? "—"}</dd>
+      <dd className="mt-0.5 text-sm">{value ?? "-"}</dd>
     </div>
   );
 }
 
 function lengthOfStay(adm: string | null) {
-  if (!adm) return "—";
+  if (!adm) return "-";
   const d = Math.max(1, Math.floor((Date.now() - new Date(adm).getTime()) / 86_400_000));
   return `${d} day${d === 1 ? "" : "s"}`;
 }

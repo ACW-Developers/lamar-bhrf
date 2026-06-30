@@ -14,7 +14,7 @@ import { formatDateTime } from "@/lib/format";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/group-sessions")({
-  head: () => ({ meta: [{ title: "Group Sessions — Lamar BHRF" }] }),
+  head: () => ({ meta: [{ title: "Group Sessions - Lamar BHRF" }] }),
   component: GroupsPage,
 });
 
