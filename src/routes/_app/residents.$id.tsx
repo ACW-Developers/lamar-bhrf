@@ -95,12 +95,61 @@ function ResidentDetailPage() {
               </div>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button variant="outline" size="sm"><Phone className="mr-2 h-4 w-4" /> Emergency contact</Button>
             <Button size="sm"><StickyNote className="mr-2 h-4 w-4" /> Add note</Button>
+            {isAdmin && (
+              <>
+                <Button variant="outline" size="sm" onClick={() => setEditOpen(true)}>
+                  <Pencil className="mr-2 h-4 w-4" /> Edit
+                </Button>
+                <Button variant="destructive" size="sm" onClick={() => setDeleteOpen(true)}>
+                  <Trash2 className="mr-2 h-4 w-4" /> Delete
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
+
+      {isAdmin && resident && (
+        <>
+          <EditResidentDialog
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            resident={resident}
+            onSaved={() => {
+              setEditOpen(false);
+              qc.invalidateQueries({ queryKey: ["resident", id] });
+              qc.invalidateQueries({ queryKey: ["residents"] });
+            }}
+          />
+          <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete resident?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This permanently removes {fullName} and all associated records. This cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={async () => {
+                    const { error } = await supabase.from("residents").delete().eq("id", id);
+                    if (error) return toast.error("Delete failed", { description: error.message });
+                    toast.success("Resident deleted");
+                    qc.invalidateQueries({ queryKey: ["residents"] });
+                    navigate({ to: "/residents" });
+                  }}
+                >
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </>
+      )}
 
       <div className="p-6">
         <Tabs defaultValue="overview">
