@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Phone, Calendar, ClipboardList, StickyNote, Pill, AlertTriangle, Activity } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeft, Phone, Calendar, ClipboardList, StickyNote, Pill, AlertTriangle, Activity, Pencil, Trash2, Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { supabase } from "@/integrations/supabase/client";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -9,6 +10,15 @@ import { Button } from "@/components/ui/button";
 import { StatusPill } from "@/components/role-badge";
 import { formatDate, relativeTime } from "@/lib/format";
 import { DataEmpty } from "@/components/data-empty";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAuth } from "@/lib/auth";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/residents/$id")({
   head: () => ({ meta: [{ title: "Resident — Lamar BHRF" }] }),
