@@ -280,3 +280,114 @@ function lengthOfStay(adm: string | null) {
   const d = Math.max(1, Math.floor((Date.now() - new Date(adm).getTime()) / 86_400_000));
   return `${d} day${d === 1 ? "" : "s"}`;
 }
+
+type ResidentRow = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  date_of_birth: string | null;
+  gender: string | null;
+  status: string;
+  admission_date: string | null;
+  primary_diagnosis: string | null;
+  phone: string | null;
+  email: string | null;
+  address: string | null;
+  room_number: string | null;
+  emergency_contact_name: string | null;
+  emergency_contact_phone: string | null;
+  notes: string | null;
+};
+
+function EditResidentDialog({
+  open, onOpenChange, resident, onSaved,
+}: {
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  resident: ResidentRow;
+  onSaved: () => void;
+}) {
+  const [form, setForm] = useState(resident);
+  useEffect(() => setForm(resident), [resident]);
+
+  const m = useMutation({
+    mutationFn: async () => {
+      const patch: Record<string, unknown> = {
+        first_name: form.first_name,
+        last_name: form.last_name,
+        date_of_birth: form.date_of_birth || null,
+        gender: form.gender || null,
+        status: form.status,
+        admission_date: form.admission_date || (form.status === "active" && !resident.admission_date ? new Date().toISOString().slice(0, 10) : resident.admission_date),
+        primary_diagnosis: form.primary_diagnosis || null,
+        phone: form.phone || null,
+        email: form.email || null,
+        address: form.address || null,
+        room_number: form.room_number || null,
+        emergency_contact_name: form.emergency_contact_name || null,
+        emergency_contact_phone: form.emergency_contact_phone || null,
+        notes: form.notes || null,
+      };
+      const { error } = await supabase.from("residents").update(patch).eq("id", resident.id);
+      if (error) throw error;
+    },
+    onSuccess: () => { toast.success("Resident updated"); onSaved(); },
+    onError: (e) => toast.error("Update failed", { description: (e as Error).message }),
+  });
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Edit resident</DialogTitle>
+          <DialogDescription>Admin-only. Update status, demographics, and contact details.</DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="space-y-1.5"><Label>First name</Label><Input value={form.first_name ?? ""} onChange={(e) => setForm({ ...form, first_name: e.target.value })} /></div>
+          <div className="space-y-1.5"><Label>Last name</Label><Input value={form.last_name ?? ""} onChange={(e) => setForm({ ...form, last_name: e.target.value })} /></div>
+          <div className="space-y-1.5"><Label>Date of birth</Label><Input type="date" value={form.date_of_birth ?? ""} onChange={(e) => setForm({ ...form, date_of_birth: e.target.value })} /></div>
+          <div className="space-y-1.5">
+            <Label>Gender</Label>
+            <Select value={form.gender ?? ""} onValueChange={(v) => setForm({ ...form, gender: v })}>
+              <SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="male">Male</SelectItem>
+                <SelectItem value="female">Female</SelectItem>
+                <SelectItem value="nonbinary">Non-binary</SelectItem>
+                <SelectItem value="prefer_not_to_say">Prefer not to say</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1.5">
+            <Label>Status</Label>
+            <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v })}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pending_admission">Pending admission</SelectItem>
+                <SelectItem value="active">Active</SelectItem>
+                <SelectItem value="on_leave">On leave</SelectItem>
+                <SelectItem value="discharged">Discharged</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1.5"><Label>Admission date</Label><Input type="date" value={form.admission_date ?? ""} onChange={(e) => setForm({ ...form, admission_date: e.target.value })} /></div>
+          <div className="space-y-1.5 sm:col-span-2"><Label>Primary diagnosis</Label><Input value={form.primary_diagnosis ?? ""} onChange={(e) => setForm({ ...form, primary_diagnosis: e.target.value })} /></div>
+          <div className="space-y-1.5"><Label>Phone</Label><Input value={form.phone ?? ""} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></div>
+          <div className="space-y-1.5"><Label>Email</Label><Input value={form.email ?? ""} onChange={(e) => setForm({ ...form, email: e.target.value })} /></div>
+          <div className="space-y-1.5 sm:col-span-2"><Label>Address</Label><Input value={form.address ?? ""} onChange={(e) => setForm({ ...form, address: e.target.value })} /></div>
+          <div className="space-y-1.5"><Label>Room number</Label><Input value={form.room_number ?? ""} onChange={(e) => setForm({ ...form, room_number: e.target.value })} /></div>
+          <div className="space-y-1.5"><Label>Emergency contact name</Label><Input value={form.emergency_contact_name ?? ""} onChange={(e) => setForm({ ...form, emergency_contact_name: e.target.value })} /></div>
+          <div className="space-y-1.5 sm:col-span-2"><Label>Emergency contact phone</Label><Input value={form.emergency_contact_phone ?? ""} onChange={(e) => setForm({ ...form, emergency_contact_phone: e.target.value })} /></div>
+          <div className="space-y-1.5 sm:col-span-2"><Label>Internal notes</Label><Textarea rows={3} value={form.notes ?? ""} onChange={(e) => setForm({ ...form, notes: e.target.value })} /></div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+          <Button onClick={() => m.mutate()} disabled={m.isPending}>
+            {m.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Save changes
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
