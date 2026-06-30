@@ -21,7 +21,7 @@ import {
   ScrollText,
   FileBarChart2,
 } from "lucide-react";
-import logoAsset from "@/assets/lamar-logo-v2.png.asset.json";
+import logoImage from "@/assets/lamar-logo.png";
 import {
   Sidebar,
   SidebarContent,
@@ -122,7 +122,7 @@ export function AppSidebar() {
       <SidebarHeader className="border-b">
         <Link to="/dashboard" className="flex h-14 items-center justify-center px-3">
           <img
-            src={logoAsset.url}
+            src={logoImage}
             alt="Lamar BHRF"
             className="h-8 w-auto object-contain group-data-[collapsible=icon]:h-6"
           />
