@@ -37,6 +37,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { formatDate } from "@/lib/format";
+import { RowActions } from "@/components/row-actions";
 
 export const Route = createFileRoute("/_app/residents/")({
   head: () => ({ meta: [{ title: "Residents - Lamar BHRF" }] }),
@@ -192,11 +193,14 @@ function ResidentsPage() {
                     <TableCell className="text-sm text-muted-foreground">{formatDate(r.admission_date)}</TableCell>
                     <TableCell className="text-sm">{r.primary_diagnosis ?? "-"}</TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="sm" asChild>
-                        <Link to="/residents/$id" params={{ id: r.id }}>
-                          Open
-                        </Link>
-                      </Button>
+                      <div className="flex items-center justify-end gap-1">
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link to="/residents/$id" params={{ id: r.id }}>
+                            Open
+                          </Link>
+                        </Button>
+                        <RowActions table="residents" id={r.id} queryKey={["residents"]} label="resident" />
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
