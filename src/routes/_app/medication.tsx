@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDateTime } from "@/lib/format";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
+import { RowActions } from "@/components/row-actions";
 
 export const Route = createFileRoute("/_app/medication")({
   head: () => ({ meta: [{ title: "Medication - Lamar BHRF" }] }),
@@ -65,6 +66,7 @@ function MedicationPage() {
                   <TableHead>Scheduled</TableHead>
                   <TableHead>Administered</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead className="w-10"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -78,6 +80,9 @@ function MedicationPage() {
                       <TableCell className="text-sm">{formatDateTime(m.scheduled_time)}</TableCell>
                       <TableCell className="text-sm">{formatDateTime(m.administered_at)}</TableCell>
                       <TableCell><StatusPill status={m.status} tone={m.status === "administered" ? "success" : m.status === "refused" || m.status === "missed" ? "destructive" : "warning"} /></TableCell>
+                      <TableCell className="text-right">
+                        <RowActions table="medication_logs" id={m.id} queryKey={["medication_logs"]} label="medication log" />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
