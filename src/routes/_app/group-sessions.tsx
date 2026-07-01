@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDateTime } from "@/lib/format";
 import { toast } from "sonner";
+import { RowActions } from "@/components/row-actions";
 
 export const Route = createFileRoute("/_app/group-sessions")({
   head: () => ({ meta: [{ title: "Group Sessions - Lamar BHRF" }] }),
@@ -55,7 +56,10 @@ function GroupsPage() {
             const attendees = Array.isArray(g.attendance) ? g.attendance.length : 0;
             return (
               <div key={g.id} className="surface-elevated rounded-2xl p-5">
-                <div className="mb-2 text-xs text-muted-foreground">{formatDateTime(g.session_date)}</div>
+                <div className="mb-2 flex items-start justify-between">
+                  <div className="text-xs text-muted-foreground">{formatDateTime(g.session_date)}</div>
+                  <RowActions table="group_sessions" id={g.id} queryKey={["group_sessions"]} label="group session" />
+                </div>
                 <h3 className="font-serif text-xl">{g.topic}</h3>
                 <div className="mt-2 text-sm text-muted-foreground">{g.location ?? "Location TBD"}</div>
                 <div className="mt-4 flex items-center justify-between text-xs">

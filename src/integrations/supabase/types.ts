@@ -631,9 +631,14 @@ export type Database = {
           content: string
           created_at: string
           id: string
+          interventions: string | null
+          mood_rating: number | null
           note_type: string
           resident_id: string
+          risk_level: string | null
           signed_at: string | null
+          soap: Json | null
+          updated_at: string
         }
         Insert: {
           author_id?: string | null
@@ -641,9 +646,14 @@ export type Database = {
           content: string
           created_at?: string
           id?: string
+          interventions?: string | null
+          mood_rating?: number | null
           note_type: string
           resident_id: string
+          risk_level?: string | null
           signed_at?: string | null
+          soap?: Json | null
+          updated_at?: string
         }
         Update: {
           author_id?: string | null
@@ -651,9 +661,14 @@ export type Database = {
           content?: string
           created_at?: string
           id?: string
+          interventions?: string | null
+          mood_rating?: number | null
           note_type?: string
           resident_id?: string
+          risk_level?: string | null
           signed_at?: string | null
+          soap?: Json | null
+          updated_at?: string
         }
         Relationships: [
           {

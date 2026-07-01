@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { formatDateTime } from "@/lib/format";
 import { toast } from "sonner";
+import { RowActions } from "@/components/row-actions";
 
 export const Route = createFileRoute("/_app/transportation")({
   head: () => ({ meta: [{ title: "Transportation - Lamar BHRF" }] }),
@@ -62,6 +63,7 @@ function TransportationPage() {
                   <TableHead>Vehicle</TableHead>
                   <TableHead>Driver</TableHead>
                   <TableHead>Return</TableHead>
+                  <TableHead className="w-10"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -76,6 +78,9 @@ function TransportationPage() {
                       <TableCell className="text-sm">{t.vehicle ?? "-"}</TableCell>
                       <TableCell className="text-sm">{d?.full_name ?? "Unassigned"}</TableCell>
                       <TableCell className="text-sm">{formatDateTime(t.return_time)}</TableCell>
+                      <TableCell className="text-right">
+                        <RowActions table="transportation_logs" id={t.id} queryKey={["transportation_logs"]} label="trip" />
+                      </TableCell>
                     </TableRow>
                   );
                 })}

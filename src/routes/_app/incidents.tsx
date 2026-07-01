@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/format";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
+import { RowActions } from "@/components/row-actions";
 
 export const Route = createFileRoute("/_app/incidents")({
   head: () => ({ meta: [{ title: "Incidents - Lamar BHRF" }] }),
@@ -64,6 +65,7 @@ function IncidentsPage() {
                   <TableHead>Type</TableHead>
                   <TableHead>Severity</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead className="w-10"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -76,6 +78,9 @@ function IncidentsPage() {
                       <TableCell className="text-sm capitalize">{i.incident_type}</TableCell>
                       <TableCell><StatusPill status={i.severity} tone={i.severity === "critical" || i.severity === "high" ? "destructive" : i.severity === "medium" ? "warning" : "default"} /></TableCell>
                       <TableCell><StatusPill status={i.status} tone={i.status === "resolved" || i.status === "closed" ? "success" : i.status === "investigating" ? "warning" : "destructive"} /></TableCell>
+                      <TableCell className="text-right">
+                        <RowActions table="incidents" id={i.id} queryKey={["incidents"]} label="incident" />
+                      </TableCell>
                     </TableRow>
                   );
                 })}

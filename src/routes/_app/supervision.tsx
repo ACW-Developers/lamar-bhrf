@@ -14,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/format";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
+import { RowActions } from "@/components/row-actions";
 
 export const Route = createFileRoute("/_app/supervision")({
   head: () => ({ meta: [{ title: "Supervision - Lamar BHRF" }] }),
@@ -68,11 +69,14 @@ function SupervisionPage() {
                     </div>
                     <div className="text-xs text-muted-foreground">{formatDate(s.session_date)}</div>
                   </div>
-                  {s.signed_off_at && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-xs text-success">
-                      <CheckCircle2 className="h-3 w-3" /> Signed off
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {s.signed_off_at && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-xs text-success">
+                        <CheckCircle2 className="h-3 w-3" /> Signed off
+                      </span>
+                    )}
+                    <RowActions table="supervision_logs" id={s.id} queryKey={["supervision_logs"]} label="supervision log" />
+                  </div>
                 </div>
                 {s.topics_discussed && <p className="mt-3 text-sm"><span className="font-medium">Topics:</span> {s.topics_discussed}</p>}
                 {s.feedback && <p className="mt-1 text-sm"><span className="font-medium">Feedback:</span> {s.feedback}</p>}

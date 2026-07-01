@@ -15,6 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/format";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
+import { RowActions } from "@/components/row-actions";
 
 export const Route = createFileRoute("/_app/therapy")({
   head: () => ({ meta: [{ title: "Therapy - Lamar BHRF" }] }),
@@ -64,6 +65,7 @@ function TherapyPage() {
                   <TableHead>Therapist</TableHead>
                   <TableHead>Duration</TableHead>
                   <TableHead>Objectives</TableHead>
+                  <TableHead className="w-10"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -77,6 +79,9 @@ function TherapyPage() {
                       <TableCell className="text-sm">{t?.full_name ?? "-"}</TableCell>
                       <TableCell className="text-sm">{s.duration_minutes ? `${s.duration_minutes} min` : "-"}</TableCell>
                       <TableCell className="max-w-sm text-sm text-muted-foreground line-clamp-1">{s.objectives_addressed ?? "-"}</TableCell>
+                      <TableCell className="text-right">
+                        <RowActions table="therapy_sessions" id={s.id} queryKey={["therapy_sessions"]} label="therapy session" />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
